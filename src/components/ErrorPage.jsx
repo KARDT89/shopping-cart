@@ -2,6 +2,6 @@ import React from 'react'
 
 export const ErrorPage = () => {
   return (
-    <div>NotFound</div>
+    <div>Not Found</div>
   )
 }
