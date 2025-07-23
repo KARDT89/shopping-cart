@@ -23,7 +23,7 @@ export const Navbar = () => {
                             isActive ? "text-primary" : "hover:text-primary"
                         }
                     >
-                        Products
+                        Shop
                     </NavLink>
                 </div>
                 <div className="flex items-center gap-4">
