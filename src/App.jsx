@@ -1,11 +1,6 @@
-import ModeToggle from "./components/ModeToggle";
+import ModeToggle from './components/ModeToggle';
 function App() {
-    return (
-        <>
-            Home
-           
-        </>
-    );
+  return <>Home</>;
 }
 
 export default App;
