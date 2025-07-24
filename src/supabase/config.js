@@ -19,7 +19,7 @@ class Service {
     }
   }
 
-  async getProductById(id) { 
+  async getProductById(id) {
     const { data, error } = await this.supabase.from('products').select().eq('id', id).single();
     return { data, error };
   }

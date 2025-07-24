@@ -28,7 +28,7 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         </div>
       </Link>
       <div className="flex justify-end items-center mx-2 mb-2">
-        <p className='bg-primary px-2 absolute top-0 left-0 text-black'>{category}</p>
+        <p className="bg-primary px-2 absolute top-0 left-0 text-black">{category}</p>
         <button
           onClick={handleClick}
           className="border rounded-[--radius] px-3 py-1.5 hover:bg-primary hover:text-secondary hover:border-secondary"

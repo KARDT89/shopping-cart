@@ -1,13 +1,16 @@
-// import { useEffect, useState } from 'react';
-import { LoaderCircle } from 'lucide-react';
 import Card from './Card';
-import supabaseService from '../supabase/config.js';
+import { LoaderCircle } from 'lucide-react';
+import { getAllProducts } from '../supabase/api';
 import { useQuery } from '@tanstack/react-query';
 
 export const Products = () => {
-  const { data: products, isLoading, error } = useQuery({
+  const {
+    data: products,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['products'],
-    queryFn: () => supabaseService.getAllProducts()
+    queryFn: getAllProducts,
   });
 
   if (error)
@@ -48,25 +51,24 @@ export const Products = () => {
   );
 };
 
-
 // Without tanstack I previously did this
 
- // const [products, setProducts] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState(false);
+// const [products, setProducts] = useState([]);
+// const [isLoading, setIsLoading] = useState(false);
+// const [error, setError] = useState(false);
 
-  // useEffect(() => {
-  //   async function fetchProducts() {
-  //     setIsLoading(true);
-  //     try {
-  //       const data = await supabaseService.getAllProducts();
-  //       setProducts(data);
-  //     } catch (err) {
-  //       console.error(err);
-  //       setError(true);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   }
-  //   fetchProducts();
-  // }, []);
+// useEffect(() => {
+//   async function fetchProducts() {
+//     setIsLoading(true);
+//     try {
+//       const data = await supabaseService.getAllProducts();
+//       setProducts(data);
+//     } catch (err) {
+//       console.error(err);
+//       setError(true);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   }
+//   fetchProducts();
+// }, []);

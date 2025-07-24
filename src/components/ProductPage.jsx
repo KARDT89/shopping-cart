@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import supabaseService from '../supabase/config';
+import { getProductById } from '../supabase/api';
 import { LoaderCircle } from 'lucide-react';
 
 const ProductPage = () => {
   const { id: productID } = useParams();
   const { data, isLoading, error } = useQuery({
     queryKey: ['product', productID],
-    queryFn: () => supabaseService.getProductById(productID),
+    queryFn: () => getProductById(productID),
   });
 
   if (error)
@@ -24,13 +24,11 @@ const ProductPage = () => {
       </div>
     );
 
-  const product = data.data;
-
   return (
     <div>
-      <div>{product.title}</div>
-      <div>{product.description}</div>
-      <div>{product.price}</div>
+      <div>{data.title}</div>
+      <div>{data.description}</div>
+      <div>{data.price}</div>
     </div>
   );
 };
