@@ -5,7 +5,8 @@ import App from './App.jsx';
 import { Products } from './components/Products.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Navbar } from './components/Navbar.jsx';
-import { ErrorPage } from './components/ErrorPage.jsx';
+import ErrorPage  from './components/ErrorPage.jsx';
+import ProductPage from './components/ProductPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <App /> },
       { path: 'products', element: <Products /> },
+      { path: 'products/:name', element: <ProductPage /> },
     ],
   },
 ]);

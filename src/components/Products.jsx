@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import Card from './Card';
-import { Link } from 'react-router-dom';
+import { slugify } from '../../utils/slugify';
 
 export const Products = () => {
   const [products, setProducts] = useState([]);
@@ -14,17 +14,19 @@ export const Products = () => {
       try {
         const response = await fetch('https://fakestoreapi.com/products');
         const data = await response.json();
-        setProducts(data);
+        const updatedData = data.map((v) => ({...v, "slug": slugify(v.title), "isAddedToCart": false}))
+        setProducts(updatedData);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
         setError(true);
-      } 
+      }
     }
     fetchProducts();
   }, []);
 
   console.log(products);
+  
 
   if (error)
     return (
@@ -48,6 +50,7 @@ export const Products = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 justify-items-center">
         {products.map((product, idx) => (
           <Card
+            key={idx}
             id={idx}
             title={product.title}
             description={product.description}

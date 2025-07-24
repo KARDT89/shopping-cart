@@ -40,11 +40,11 @@ const Card = ({ id, title, description, image, price, rating }) => {
 };
 
 Card.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   rating: PropTypes.shape({
     rate: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
