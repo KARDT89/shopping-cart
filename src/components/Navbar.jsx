@@ -6,7 +6,7 @@ import { ShoppingCart } from 'lucide-react';
 export const Navbar = () => {
   return (
     <div>
-      <nav className="mx-auto my-2 lg:my-4 flex justify-between backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-transparent/70 font-mono border rounded-[--radius] fixed top-0 left-0 right-0 z-50">
+      <nav className="mx-auto my-2 lg:my-4 grid grid-cols-3 justify-start backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-transparent/70 font-mono border rounded-[--radius] fixed top-0 left-0 right-0 z-50">
         <h1 className="text-xl">My Store</h1>
         <div className="flex gap-4 items-center justify-center text-white/50">
           <NavLink
@@ -22,7 +22,8 @@ export const Navbar = () => {
             Shop
           </NavLink>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-end gap-4">
+          <input type="text" className='lg:block bg-transparent border rounded-[--radius] text-sm px-4 py-1 hidden' placeholder='search...'/>
           <ShoppingCart className="hover:text-primary cursor-pointer" />
           <ModeToggle />
         </div>
