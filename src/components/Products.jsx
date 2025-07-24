@@ -1,28 +1,14 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import Card from './Card';
 import supabaseService from '../supabase/config.js';
+import { useQuery } from '@tanstack/react-query';
 
 export const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    async function fetchProducts() {
-      setIsLoading(true);
-      try {
-        const data = await supabaseService.getAllProducts();
-        setProducts(data);
-      } catch (err) {
-        console.error(err);
-        setError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchProducts();
-  }, []);
+  const { data: products, isLoading, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: () => supabaseService.getAllProducts()
+  });
 
   if (error)
     return (
@@ -43,8 +29,8 @@ export const Products = () => {
       {/* left */}
 
       {/* right */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 justify-items-center">
-        {products.map((product) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+        {products.map(product => (
           <Card
             key={product.id}
             id={product.id}
@@ -61,3 +47,26 @@ export const Products = () => {
     </div>
   );
 };
+
+
+// Without tanstack I previously did this
+
+ // const [products, setProducts] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(false);
+
+  // useEffect(() => {
+  //   async function fetchProducts() {
+  //     setIsLoading(true);
+  //     try {
+  //       const data = await supabaseService.getAllProducts();
+  //       setProducts(data);
+  //     } catch (err) {
+  //       console.error(err);
+  //       setError(true);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   fetchProducts();
+  // }, []);
