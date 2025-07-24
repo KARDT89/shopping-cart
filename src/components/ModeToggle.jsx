@@ -5,13 +5,13 @@ function ModeToggle() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    const storedPref = localStorage.getItem('darkMode') === 'true';
-    setDarkMode(storedPref);
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem('darkMode', darkMode);
   }, [darkMode]);
+
+  useEffect(() => {
+    const storedPref = localStorage.getItem('darkMode') === 'false';
+    setDarkMode(storedPref);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;

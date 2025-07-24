@@ -6,9 +6,9 @@ import { ShoppingCart } from 'lucide-react';
 export const Navbar = () => {
   return (
     <div>
-      <nav className="mx-auto my-2 lg:my-4 flex justify-between p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-foreground bg-background font-mono border rounded-[--radius] fixed top-0 left-0 right-0 dark:bg-transparent/80">
+      <nav className="mx-auto my-2 lg:my-4 flex justify-between p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-transparent/80 font-mono border rounded-[--radius] fixed top-0 left-0 right-0">
         <h1 className="text-xl">My Store</h1>
-        <div className="flex gap-4 items-center justify-center text-foreground/50">
+        <div className="flex gap-4 items-center justify-center text-white/50">
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? 'text-primary' : 'hover:text-primary')}

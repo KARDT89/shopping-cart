@@ -15,12 +15,11 @@ export const Products = () => {
         const response = await fetch('https://fakestoreapi.com/products');
         const data = await response.json();
         setProducts(data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
         setError(true);
-      }
-
-      setIsLoading(false);
+      } 
     }
     fetchProducts();
   }, []);
@@ -36,7 +35,7 @@ export const Products = () => {
 
   if (isLoading)
     return (
-      <div className="flex h-full w-full items-center justify-center bg-background text-foreground text-2xl gap-2">
+      <div className="flex w-full items-center justify-center bg-background text-foreground text-2xl gap-2">
         <LoaderCircle className="animate-spin" /> <p>Loading</p>
       </div>
     );
