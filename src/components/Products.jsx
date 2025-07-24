@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import Card from './Card';
-import { slugify } from '../../utils/slugify';
+import supabaseService from '../supabase/config.js';
 
 export const Products = () => {
   const [products, setProducts] = useState([]);
@@ -12,21 +12,17 @@ export const Products = () => {
     async function fetchProducts() {
       setIsLoading(true);
       try {
-        const response = await fetch('https://fakestoreapi.com/products');
-        const data = await response.json();
-        const updatedData = data.map((v) => ({...v, "slug": slugify(v.title), "isAddedToCart": false}))
-        setProducts(updatedData);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
+        const data = await supabaseService.getAllProducts();
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
         setError(true);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchProducts();
   }, []);
-
-  console.log(products);
-  
 
   if (error)
     return (
@@ -56,7 +52,8 @@ export const Products = () => {
             description={product.description}
             image={product.image}
             price={product.price}
-            rating={product.rating}
+            rating={product.rate}
+            reviews={product.reviews}
             category={product.category}
           />
         ))}

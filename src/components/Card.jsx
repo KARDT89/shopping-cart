@@ -2,7 +2,7 @@ import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Card = ({ id, title, description, image, price, rating }) => {
+const Card = ({ id, title, description, image, price, rating, reviews }) => {
   function handleClick() {
     console.log('hello');
   }
@@ -17,12 +17,12 @@ const Card = ({ id, title, description, image, price, rating }) => {
             <p className="text-2xl font-bold">₹{price}</p>
             <div className="flex flex-col items-end">
               <StarRatings
-                rating={rating.rate}
+                rating={rating}
                 starRatedColor="gold"
                 starDimension="15px"
                 starSpacing="1px"
               />
-              <p className="text-primary/50 text-[12px]">{rating.count} Reviews</p>
+              <p className="text-primary/50 text-[12px]">{reviews} Reviews</p>
             </div>
           </div>
         </div>
@@ -39,16 +39,14 @@ const Card = ({ id, title, description, image, price, rating }) => {
   );
 };
 
-Card.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  rating: PropTypes.shape({
-    rate: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired,
-  }).isRequired,
-};
+// Card.propTypes = {
+//   id: PropTypes.string.isRequired, // it's a UUID
+//   title: PropTypes.string.isRequired,
+//   description: PropTypes.string.isRequired,
+//   image: PropTypes.string.isRequired,
+//   price: PropTypes.number.isRequired,
+//   rate: PropTypes.number.isRequired,
+//   count: PropTypes.number.isRequired,
+// };
 
 export default Card;
