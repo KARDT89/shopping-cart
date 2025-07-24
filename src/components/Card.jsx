@@ -2,7 +2,7 @@ import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Card = ({ id, title, description, image, price, rating, reviews }) => {
+const Card = ({ id, title, description, image, price, rating, reviews, category }) => {
   function handleClick() {
     console.log('hello');
   }
@@ -39,14 +39,15 @@ const Card = ({ id, title, description, image, price, rating, reviews }) => {
   );
 };
 
-// Card.propTypes = {
-//   id: PropTypes.string.isRequired, // it's a UUID
-//   title: PropTypes.string.isRequired,
-//   description: PropTypes.string.isRequired,
-//   image: PropTypes.string.isRequired,
-//   price: PropTypes.number.isRequired,
-//   rate: PropTypes.number.isRequired,
-//   count: PropTypes.number.isRequired,
-// };
+Card.propTypes = {
+  id: PropTypes.string.isRequired, // it's a UUID
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  rating: PropTypes.number.isRequired,
+  reviews: PropTypes.number.isRequired,
+  category: PropTypes.string.isRequired,
+};
 
 export default Card;
