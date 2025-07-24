@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../supabase/api';
 import { LoaderCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ProductPage = () => {
   const { id: productID } = useParams();
@@ -26,6 +27,7 @@ const ProductPage = () => {
 
   return (
     <div>
+      <Link to={"/products"}><button className='border px-2'>back</button></Link>
       <div>{data.title}</div>
       <div>{data.description}</div>
       <div>{data.price}</div>
