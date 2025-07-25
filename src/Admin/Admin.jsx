@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import ModeToggle from '../ModeToggle';
+import ModeToggle from '../components/ModeToggle';
 import { ShoppingCart } from 'lucide-react';
 
 const Admin = () => {

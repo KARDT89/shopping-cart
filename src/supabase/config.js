@@ -23,6 +23,21 @@ class Service {
     const { data, error } = await this.supabase.from('products').select().eq('id', id).single();
     return { data, error };
   }
+
+  async addProducts(title, description, slug, category, image, price, rating, review) {
+    const { error } = await supabase
+      .from('products')
+      .insert({
+        slug: slug,
+        title: title,
+        description: description,
+        image: image,
+        price: price,
+        rate: rating,
+        reviews: review,
+        category: category,
+      });
+  }
 }
 
 export default new Service();

@@ -31,7 +31,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-end gap-4">
           <input
             type="text"
-            className="lg:block bg-background border rounded-[--radius] text-sm px-4 py-1 hidden"
+            className="lg:block bg-background border text-sm px-4 py-1 hidden"
             placeholder="search..."
           />
           <ShoppingCart className="hover:text-primary cursor-pointer" />
