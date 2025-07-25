@@ -8,22 +8,26 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
     console.log('hello');
   }
   return (
-    <div className="flex relative flex-col bg-card hover:bg-background justify-between border rounded-md w-[300px] h-[450px]">
+    <div className="flex relative flex-col bg-card hover:bg-background justify-between border-[2px] rounded-md w-[300px] h-[450px]">
       <Link to={`/products/${id}`}>
-        <img src={image} alt={title} className="h-[250px] w-full object-scale-down bg-white" />
+        <img src={image} alt={title} className="h-[250px] w-full object-scale-down bg-white border-b-2" />
         <div className="flex flex-1 flex-col justify-between font-bold text-sm gap-4 p-2">
           <h1 className="line-clamp-1">{title}</h1>
           <p className="line-clamp-2 italic text-muted-foreground text-[12px]">{description}</p>
           <div className="flex items-start justify-between">
             <p className="text-2xl font-bold">₹{price}</p>
-            <div className="flex flex-col items-end">
-              <StarRatings
+            <div className="flex flex-col items-end gap-1">
+              <div className='flex items-center justify-center gap-1'>
+                <StarRatings
                 rating={rating}
                 starRatedColor="gold"
                 starDimension="15px"
                 starSpacing="1px"
               />
-              <p className="text-primary/50 text-[12px]">{reviews} Reviews</p>
+                <p className='pt-1.5 text-[10px]'>({rating})</p>
+              </div>
+              
+              <p className="text-primary/80 text-[12px]">{reviews} Reviews</p>
             </div>
           </div>
         </div>
