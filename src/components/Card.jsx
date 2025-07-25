@@ -8,14 +8,14 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
     console.log('hello');
   }
   return (
-    <div className="flex relative flex-col bg-card hover:bg-background justify-between border-[2px] rounded-md w-[300px] h-[450px]">
+    <div className="flex relative flex-col bg-card hover:bg-background justify-between border-[2px] rounded-md w-[240px] h-[320px] lg:w-[300px] lg:h-[450px]">
       <Link to={`/products/${id}`}>
-        <img src={image} alt={title} className="h-[250px] w-full object-scale-down bg-white border-b-2" />
-        <div className="flex flex-1 flex-col justify-between font-bold text-sm gap-4 p-2">
+        <img src={image} alt={title} className="h-[150px] lg:h-[250px] w-full object-scale-down bg-white border-b-2" />
+        <div className="flex flex-1 flex-col justify-between font-bold text-sm gap-1 lg:gap-4 p-2">
           <h1 className="line-clamp-1 text-lg capitalize">{title}</h1>
           <p className="line-clamp-2 italic text-muted-foreground text-[12px]">{description}</p>
           <div className="flex items-start justify-between">
-            <p className="text-2xl font-bold">₹{price}</p>
+            <p className="text-xl md:text-2xl font-bold">₹{price}</p>
             <div className="flex flex-col items-end gap-1">
               <div className='flex items-center justify-center gap-1'>
                 <StarRatings
@@ -36,8 +36,8 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         <p className="bg-green-500 px-2 text-sm absolute top-0 left-0 capitalize font-mono rounded-r-md text-black">{category}</p>
         <Button
           onClick={handleClick}
-
-          // className="border rounded-md px-3 py-1.5 hover:bg-primary hover:text-secondary hover:border-secondary"
+          size={'sm'}
+          
         >
           Add to cart
         </Button>
