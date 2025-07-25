@@ -12,7 +12,7 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
       <Link to={`/products/${id}`}>
         <img src={image} alt={title} className="h-[250px] w-full object-scale-down bg-white border-b-2" />
         <div className="flex flex-1 flex-col justify-between font-bold text-sm gap-4 p-2">
-          <h1 className="line-clamp-1">{title}</h1>
+          <h1 className="line-clamp-1 text-lg capitalize">{title}</h1>
           <p className="line-clamp-2 italic text-muted-foreground text-[12px]">{description}</p>
           <div className="flex items-start justify-between">
             <p className="text-2xl font-bold">₹{price}</p>
