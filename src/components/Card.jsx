@@ -32,8 +32,8 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         <p className="bg-secondary-accent px-2 absolute top-0 left-0 text-background">{category}</p>
         <Button
           onClick={handleClick}
-          
-         // className="border rounded-md px-3 py-1.5 hover:bg-primary hover:text-secondary hover:border-secondary"
+
+          // className="border rounded-md px-3 py-1.5 hover:bg-primary hover:text-secondary hover:border-secondary"
         >
           Add to cart
         </Button>

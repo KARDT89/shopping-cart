@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import ModeToggle from './ModeToggle';
 import { ShoppingCart } from 'lucide-react';
@@ -21,12 +21,12 @@ export const Navbar = () => {
           >
             Shop
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/admin"
             className={({ isActive }) => (isActive ? 'text-primary' : 'hover:text-primary')}
           >
             Admin
-          </NavLink>
+          </NavLink> */}
         </div>
         <div className="flex items-center justify-end gap-4">
           <input
@@ -34,7 +34,9 @@ export const Navbar = () => {
             className="lg:block bg-background border text-sm px-4 py-1 hidden"
             placeholder="search..."
           />
-          <ShoppingCart className="hover:text-primary cursor-pointer" />
+          <Link to="/cart">
+            <ShoppingCart className="hover:text-primary cursor-pointer" />
+          </Link>
           <ModeToggle />
         </div>
       </nav>

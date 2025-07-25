@@ -24,19 +24,19 @@ class Service {
     return { data, error };
   }
 
-  async addProducts(title, description, slug, category, image, price, rating, review) {
-    const { error } = await supabase
-      .from('products')
-      .insert({
-        slug: slug,
-        title: title,
-        description: description,
-        image: image,
-        price: price,
-        rate: rating,
-        reviews: review,
-        category: category,
-      });
+  async addProducts(title, description, slug, category, image, price, rating, reviews) {
+    const { error, data } = await this.supabase.from('products').insert({
+      slug: slug,
+      title: title,
+      description: description,
+      image: image,
+      price: price,
+      rate: rating,
+      reviews: reviews,
+      category: category,
+    });
+    if (error) throw error;
+    return data;
   }
 }
 

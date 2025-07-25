@@ -13,6 +13,8 @@ import Admin from './Admin/Admin.jsx';
 import { Categories } from './Admin/Categories.jsx';
 import { ManageProducts } from './Admin/Products.jsx';
 import Users from './Admin/Users.jsx';
+import { Toaster } from '@/components/ui/sonner';
+import Cart from './components/Cart.jsx';
 
 const queryClient = new QueryClient();
 
@@ -25,17 +27,18 @@ const router = createBrowserRouter([
       { path: '/', element: <App /> },
       { path: 'products', element: <Products /> },
       { path: 'products/:id', element: <ProductPage /> },
+      { path: 'cart', element: <Cart /> },
     ],
   },
-  {
-    path: 'admin',
-    element: <Admin />,
-    children: [
-      { path: 'products', element: <ManageProducts /> },
-      { path: 'categories', element: <Categories /> },
-      { path: 'users', element: <Users /> },
-    ],
-  },
+  // {
+  //   path: 'admin',
+  //   element: <Admin />,
+  //   children: [
+  //     { path: 'products', element: <ManageProducts /> },
+  //     { path: 'categories', element: <Categories /> },
+  //     { path: 'users', element: <Users /> },
+  //   ],
+  // },
 ]);
 
 createRoot(document.getElementById('root')).render(
@@ -43,6 +46,7 @@ createRoot(document.getElementById('root')).render(
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={false} />
+      <Toaster />
     </QueryClientProvider>
   </StrictMode>
 );

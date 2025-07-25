@@ -10,7 +10,8 @@ export async function getProductById(id) {
   return data;
 }
 
-export async function addProduct(title, description, slug, category, image, price, rating, review) {
+export async function addProduct(product) {
+  const { title, description, slug, category, image, price, rating, reviews } = product;
   await supabaseService.addProducts(
     title,
     description,
@@ -19,6 +20,6 @@ export async function addProduct(title, description, slug, category, image, pric
     image,
     price,
     rating,
-    review
+    reviews
   );
 }
