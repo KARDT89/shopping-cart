@@ -50,9 +50,11 @@ export const Products = () => {
     );
 
   return (
-    <div>
+    <div className='flex flex-col gap-4'>
       {/* left */}
-
+      <div className='md:hidden text-center text-2xl'>
+        <p>Shop Here</p>
+      </div>
       {/* right */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
         {products.map(product => (
