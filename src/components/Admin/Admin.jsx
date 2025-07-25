@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import ModeToggle from './ModeToggle';
+import ModeToggle from '../ModeToggle';
 import { ShoppingCart } from 'lucide-react';
 
-export const Navbar = () => {
+const Admin = () => {
   return (
     <div>
       <nav className="mx-auto my-2 lg:my-4 grid grid-cols-3 justify-start backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-foreground bg-background/85 font-mono border rounded-md fixed top-0 left-0 right-0 z-50">
-        <h1 className="text-xl">My Store</h1>
+        <h1 className="text-xl">Admin Panel</h1>
         <div className="flex gap-4 items-center justify-center text-foreground/50">
           <NavLink
             to="/"
@@ -16,16 +16,22 @@ export const Navbar = () => {
             Home
           </NavLink>
           <NavLink
-            to="/products"
+            to="/admin/users"
             className={({ isActive }) => (isActive ? 'text-primary' : 'hover:text-primary')}
           >
-            Shop
+            User
           </NavLink>
           <NavLink
-            to="/admin"
+            to="/admin/products"
             className={({ isActive }) => (isActive ? 'text-primary' : 'hover:text-primary')}
           >
-            Admin
+            Products
+          </NavLink>
+          <NavLink
+            to="/admin/categories"
+            className={({ isActive }) => (isActive ? 'text-primary' : 'hover:text-primary')}
+          >
+            Categories
           </NavLink>
         </div>
         <div className="flex items-center justify-end gap-4">
@@ -44,3 +50,5 @@ export const Navbar = () => {
     </div>
   );
 };
+
+export default Admin;

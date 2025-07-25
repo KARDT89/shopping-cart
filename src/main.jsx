@@ -9,6 +9,10 @@ import ErrorPage from './components/ErrorPage.jsx';
 import ProductPage from './components/ProductPage.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import Admin from './components/Admin/Admin.jsx';
+import { Categories } from './components/Admin/Categories.jsx';
+import {  ManageProducts } from './components/Admin/Products.jsx';
+import Users from './components/Admin/Users.jsx';
 
 const queryClient = new QueryClient();
 
@@ -21,6 +25,15 @@ const router = createBrowserRouter([
       { path: '/', element: <App /> },
       { path: 'products', element: <Products /> },
       { path: 'products/:id', element: <ProductPage /> },
+    ],
+  },
+  {
+    path: 'admin',
+    element: <Admin />,
+    children: [
+      { path: 'products', element:  <ManageProducts/>},
+      { path: 'categories', element:  <Categories/>},
+      { path: 'users', element:  <Users/>},
     ],
   },
 ]);
