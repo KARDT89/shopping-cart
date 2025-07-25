@@ -6,6 +6,7 @@ import { slugify } from '../../utils/slugify';
 import { addProduct } from '../supabase/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { Button } from './ui/button';
 
 const AddProductForm = () => {
   const form = useForm();
@@ -30,7 +31,7 @@ const AddProductForm = () => {
   });
 
   function submitForm(data) {
-    // console.log(data);
+    console.log(data);
     mutate({ ...data, slug: slugify(data.title) });
   }
 
@@ -43,7 +44,7 @@ const AddProductForm = () => {
         <input
           type="text"
           id="title"
-          className="lg:block bg-background border text-sm px-4 py-1"
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('title', { required: 'Title is required' })}
         />
 
@@ -51,7 +52,7 @@ const AddProductForm = () => {
         <input
           type="text"
           id="slug"
-          className="lg:block bg-background border text-sm px-4 py-1"
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           value={slugify(watchTitle || '')}
           {...register('slug')}
           readOnly
@@ -61,31 +62,31 @@ const AddProductForm = () => {
         <input
           type="text"
           id="description"
-          className="lg:block bg-background border text-sm px-4 py-1"
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('description')}
         />
 
-        <Label htmlFor="category">Category</Label>
+        <Label htmlFor="category">Category{errors.category && <p className="text-red-600">{errors.category.message}</p>}</Label>
         <input
           type="text"
           id="category"
-          className="lg:block bg-background border text-sm px-4 py-1"
-          {...register('category')}
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
+          {...register('category', { required: 'Category is required' })}
         />
 
         <Label htmlFor="image">Image Link</Label>
         <input
           type="text"
           id="image"
-          className="lg:block bg-background border text-sm px-4 py-1"
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('image')}
         />
 
-        <Label htmlFor="price">Price</Label>
+        <Label htmlFor="price">Price{errors.price && <p className="text-red-600">{errors.price.message}</p>}</Label>
         <input
           type="number"
           id="price"
-          className="lg:block bg-background border text-sm px-4 py-1"
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('price', { required: 'Price is required' })}
         />
 
@@ -94,7 +95,7 @@ const AddProductForm = () => {
           type="number"
           id="rating"
           step="any"
-          className="lg:block bg-background border text-sm px-4 py-1"
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('rating')}
         />
 
@@ -102,13 +103,13 @@ const AddProductForm = () => {
         <input
           type="number"
           id="reviews"
-          className="lg:block bg-background border text-sm px-4 py-1"
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('reviews')}
         />
 
-        <button type="submit" className="border py-1" variant={'outline'} disabled={isSubmitting}>
+        <Button type="submit" className="border py-1 cursor-pointer" variant={'ghost'} disabled={isSubmitting}>
           Submit
-        </button>
+        </Button>
       </form>
       <DevTool control={control} />
     </div>

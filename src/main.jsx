@@ -10,11 +10,12 @@ import ProductPage from './components/ProductPage.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Admin from './Admin/Admin.jsx';
-import { Categories } from './Admin/Categories.jsx';
-import { ManageProducts } from './Admin/Products.jsx';
-import Users from './Admin/Users.jsx';
+// import { Categories } from './Admin/Categories.jsx';
+// // import { ManageProducts } from './Admin/Products.jsx';
+// import Users from './Admin/Users.jsx';
 import { Toaster } from '@/components/ui/sonner';
 import Cart from './components/Cart.jsx';
+import { CreateProduct } from './components/CreateProduct.jsx';
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: 'products', element: <Products /> },
       { path: 'products/:id', element: <ProductPage /> },
       { path: 'cart', element: <Cart /> },
+      { path: 'create', element: <CreateProduct /> },
     ],
   },
   // {
@@ -45,7 +47,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
       <Toaster />
     </QueryClientProvider>
   </StrictMode>

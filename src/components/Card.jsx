@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from './ui/button';
 import { useState } from 'react';
-import { Minus, Plus } from 'lucide-react';
+import { Heart, Minus, Plus } from 'lucide-react';
 
 
 const Card = ({ id, title, description, image, price, rating, reviews, category }) => {
@@ -15,6 +15,7 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
   return (
     <div className="flex relative flex-col bg-card hover:bg-background justify-between border-[2px] rounded-md w-[240px] h-[320px] lg:w-[300px] lg:h-[450px]">
       <Link to={`/products/${id}`}>
+     
         <img
           src={image}
           alt={title}
@@ -42,10 +43,10 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         </div>
       </Link>
       <div className="flex justify-end items-center mx-2 mb-2">
-        <p className="bg-green-500 px-2 text-sm absolute top-0 left-0 capitalize font-mono rounded-r-md text-black">
+         <p className="bg-green-500 px-2 text-sm absolute top-0 left-0 capitalize font-mono rounded-r-md text-black">
           {category}
         </p>
-        
+        <Heart className={'text-red-500 text-sm rounded-full absolute top-1.5 right-2 cursor-pointer hover:fill-red-500'}/>
         {isClicked ? (
           <div className='flex items-center rounded-lg justify-center gap-2 border-5 border-background/40 font-mono '>
             <Button variant={'outline'} onClick={() => setCount(c => Math.max(c - 1, 0))} size={'sm'} className={'cursor-pointer'}>
