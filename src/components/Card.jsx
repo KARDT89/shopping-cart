@@ -33,7 +33,7 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         </div>
       </Link>
       <div className="flex justify-end items-center mx-2 mb-2">
-        <p className="bg-secondary-accent px-2 absolute top-0 left-0 text-background">{category}</p>
+        <p className="bg-green-500 px-2 text-sm absolute top-0 left-0 capitalize font-mono rounded-r-md text-black">{category}</p>
         <Button
           onClick={handleClick}
 
