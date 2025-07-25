@@ -1,16 +1,17 @@
 import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Button } from './ui/button';
 
 const Card = ({ id, title, description, image, price, rating, reviews, category }) => {
   function handleClick() {
     console.log('hello');
   }
   return (
-    <div className="flex relative flex-col bg-card hover:bg-background justify-between border rounded-[--radius] w-[300px] h-[450px]">
+    <div className="flex relative flex-col bg-card hover:bg-background justify-between border rounded-md w-[300px] h-[450px]">
       <Link to={`/products/${id}`}>
         <img src={image} alt={title} className="h-[250px] w-full object-scale-down bg-white" />
-        <div className="flex flex-1 flex-col justify-between text-sm gap-4 p-2">
+        <div className="flex flex-1 flex-col justify-between font-bold text-sm gap-4 p-2">
           <h1 className="line-clamp-1">{title}</h1>
           <p className="line-clamp-2 italic text-muted-foreground text-[12px]">{description}</p>
           <div className="flex items-start justify-between">
@@ -28,13 +29,14 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         </div>
       </Link>
       <div className="flex justify-end items-center mx-2 mb-2">
-        <p className="bg-primary px-2 absolute top-0 left-0 text-black">{category}</p>
-        <button
+        <p className="bg-secondary-accent px-2 absolute top-0 left-0 text-background">{category}</p>
+        <Button
           onClick={handleClick}
-          className="border rounded-[--radius] px-3 py-1.5 hover:bg-primary hover:text-secondary hover:border-secondary"
+          
+         // className="border rounded-md px-3 py-1.5 hover:bg-primary hover:text-secondary hover:border-secondary"
         >
           Add to cart
-        </button>
+        </Button>
       </div>
     </div>
   );
