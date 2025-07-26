@@ -39,7 +39,7 @@ const AddProductForm = () => {
         className="w-sm font-mono flex flex-col gap-3 border p-6 rounded-2xl"
         onSubmit={handleSubmit(submitForm)}
       >
-        <div></div>
+        
         <Label htmlFor="title">
           Title: {errors.title && <p className="text-red-600">{errors.title.message}</p>}
         </Label>
@@ -95,7 +95,6 @@ const AddProductForm = () => {
           className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('price', { required: 'Price is required' })}
         />
-
         <Label htmlFor="rating">
           Rating{' '}
           {errors.rating?.type === 'min' && (

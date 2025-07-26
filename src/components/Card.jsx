@@ -56,14 +56,14 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
   // console.log(cart);
 
   return (
-    <div className="flex relative flex-col bg-card hover:bg-background justify-between border-[2px] rounded-md w-[240px] h-[320px] lg:w-[300px] lg:h-[450px]">
+    <div className="flex relative flex-col bg-card hover:bg-background justify-between border-[2px] rounded-md w-[240px] h-[320px]">
       <Link to={`/products/${id}`}>
         <img
           src={image}
           alt={title}
-          className="h-[150px] lg:h-[250px] w-full object-scale-down bg-white border-b-2"
+          className="h-[150px] w-full object-scale-down bg-white border-b-2"
         />
-        <div className="flex flex-1 flex-col justify-between font-bold text-sm gap-1 lg:gap-4 p-2">
+        <div className="flex flex-1 flex-col justify-between font-bold text-sm gap-1 p-2">
           <h1 className="line-clamp-1 text-lg capitalize">{title}</h1>
           <p className="line-clamp-2 italic text-muted-foreground text-[12px]">{description}</p>
           <div className="flex items-start justify-between">
