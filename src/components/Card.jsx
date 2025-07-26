@@ -46,6 +46,10 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
       const newCartItem = {
         id: id,
         quantity: count,
+        title: title,
+        description: description, 
+        image: image,
+        price: price,
       };
       setCart(p => [...p, newCartItem]);
     } else {
