@@ -2,20 +2,48 @@ import StarRatings from 'react-star-ratings';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from './ui/button';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Heart, Minus, Plus } from 'lucide-react';
-
+import { CartContext } from './context/CartContext';
 
 const Card = ({ id, title, description, image, price, rating, reviews, category }) => {
+  const { cart, setCart } = useContext(CartContext);
   const [isClicked, setIsClicked] = useState(false);
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
   function handleClick() {
+    setCount(c => c + 1);
     setIsClicked(true);
   }
+
+  function increaseQuantity() {
+    setCount(c => c + 1);
+  }
+
+  useEffect(() => {
+    if (count === 0) {
+      setIsClicked(false);
+    }
+    setCart(prev => prev.map(item => (item.id === id ? { ...item, quantity: count } : item)));
+  }, [count]);
+
+  useEffect(() => {
+    if (isClicked) {
+      const newCartItem = {
+        id: id,
+        quantity: count,
+      };
+      setCart(p => [...p, newCartItem]);
+    } else {
+      setCart(prev => prev.filter(c => c.id !== id));
+    }
+  }, [isClicked]);
+
+  console.log(cart);
+
   return (
     <div className="flex relative flex-col bg-card hover:bg-background justify-between border-[2px] rounded-md w-[240px] h-[320px] lg:w-[300px] lg:h-[450px]">
       <Link to={`/products/${id}`}>
-     
         <img
           src={image}
           alt={title}
@@ -43,23 +71,40 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         </div>
       </Link>
       <div className="flex justify-end items-center mx-2 mb-2">
-         <p className="bg-green-500 px-2 text-sm absolute top-0 left-0 capitalize font-mono rounded-r-md text-black">
+        <p className="bg-green-500 px-2 text-sm absolute top-0 left-0 capitalize font-mono rounded-r-md text-black">
           {category}
         </p>
-        <Heart className={'text-red-500 text-sm rounded-full absolute top-1.5 right-2 cursor-pointer hover:fill-red-500'}/>
-        {isClicked ? (
-          <div className='flex items-center rounded-lg justify-center gap-2 border-5 border-background/40 font-mono '>
-            <Button variant={'outline'} onClick={() => setCount(c => Math.max(c - 1, 0))} size={'sm'} className={'cursor-pointer'}>
-             <Minus/>
+        {/* <Heart className={'text-red-500 text-sm rounded-full absolute top-1.5 right-2 cursor-pointer hover:fill-red-500'}/> */}
+        {isClicked && count > 0 ? (
+          <div className="flex items-center rounded-lg justify-center gap-2  border-background/40 font-mono ">
+            <Button
+              variant={'outline'}
+              onClick={() => setCount(c => c - 1)}
+              size={'sm'}
+              className={'w-[35px] cursor-pointer'}
+            >
+              <Minus />
             </Button>
-            <p className='mx-0 text-xl font-stretch-ultra-condensed'>{count}</p>
-            <Button variant={'outline'}  onClick={() => setCount(c => c + 1)} size={'sm'} className={'cursor-pointer'}>
-              <Plus/>
+            <p className="mx-0 text-xl font-stretch-ultra-condensed">{count}</p>
+            <Button
+              variant={'outline'}
+              onClick={increaseQuantity}
+              size={'sm'}
+              className={'w-[35px] cursor-pointer'}
+            >
+              <Plus />
             </Button>
           </div>
-        ): (<Button variant={'outline'} onClick={handleClick} size={'sm'} className={'cursor-pointer'}>
-          Add to cart
-        </Button>)}
+        ) : (
+          <Button
+            variant={'outline'}
+            onClick={handleClick}
+            size={'sm'}
+            className={'cursor-pointer'}
+          >
+            Add to cart
+          </Button>
+        )}
       </div>
     </div>
   );

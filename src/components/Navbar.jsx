@@ -3,8 +3,11 @@ import { Outlet } from 'react-router-dom';
 import ModeToggle from './ModeToggle';
 import { House, Search, ShoppingCart, Store } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { useContext } from 'react';
+import { CartContext } from './context/CartContext';
 
 export const Navbar = () => {
+  const { cart } = useContext(CartContext);
   return (
     <div>
       <nav className="mx-auto my-2 lg:my-4 block md:grid md:grid-cols-3 justify-start backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-black/80 font-mono border rounded-md fixed bottom-0 md:top-0 md:bottom-auto left-0 right-0 z-50">
@@ -21,18 +24,6 @@ export const Navbar = () => {
             className={({ isActive }) => (isActive ? 'text-white' : 'hover:text-primary')}
           >
             Create
-          </NavLink>
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? 'text-white' : 'hover:text-primary')}
-          >
-            Categories
-          </NavLink> 
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? 'text-white' : 'hover:text-primary')}
-          >
-            WatchList
           </NavLink>
         </div>
         <div className="grid grid-cols-5 justify-items-center md:flex md:items-center md:justify-end gap-4">
@@ -54,8 +45,13 @@ export const Navbar = () => {
           </Link>
           <HoverCard>
             <HoverCardTrigger>
-              <Link to="/cart">
-                <ShoppingCart className="hover:text-primary cursor-pointer" />
+              <Link to="/cart" className="relative">
+                <ShoppingCart className="hover:text-primary cursor-pointer " />
+                {cart.length > 0 && (
+                  <p className="text-sm absolute bottom-3 left-3 bg-red-400 px-1.5 rounded-full">
+                    {cart.length}
+                  </p>
+                )}
               </Link>
             </HoverCardTrigger>
             <HoverCardContent>

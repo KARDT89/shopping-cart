@@ -3,13 +3,17 @@ import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { slugify } from '../../utils/slugify';
 import { addProduct } from '../supabase/api';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+// import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
 
 const AddProductForm = () => {
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      title: ""
+    }
+  });
   const {
     register,
     formState: { errors, isSubmitting },
@@ -19,24 +23,23 @@ const AddProductForm = () => {
   } = form;
   const watchTitle = watch('title');
 
-  const queryClient = useQueryClient();
-
-  const { mutate, isError, isPending, error } = useMutation({
-    mutationKey: ['addProduct'],
-    mutationFn: addProduct,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+  async function submitForm(data) {
+    try {
+      await addProduct({ ...data, slug: slugify(data.title) });
       toast('Successfully Added Product');
-    },
-  });
-
-  function submitForm(data) {
-    mutate({ ...data, slug: slugify(data.title) });
+    } catch (error) {
+      console.log(error);
+      toast('Error occured');
+    }
   }
 
   return (
     <div>
-      <form className="w-sm font-mono flex flex-col gap-3" onSubmit={handleSubmit(submitForm)}>
+      <form
+        className="w-sm font-mono flex flex-col gap-3 border p-6 rounded-2xl"
+        onSubmit={handleSubmit(submitForm)}
+      >
+        <div></div>
         <Label htmlFor="title">
           Title: {errors.title && <p className="text-red-600">{errors.title.message}</p>}
         </Label>
@@ -93,45 +96,38 @@ const AddProductForm = () => {
           {...register('price', { required: 'Price is required' })}
         />
 
-        <Label htmlFor="rating">Rating</Label>
-        <input
-          type="number"
-          id="rating"
-          step="any"
-          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
-          {...register('rating')}
-        />
-
-        <Label htmlFor="reviews">
-          Total Reviews
-          {errors.reviews?.type === 'min' && (
+        <Label htmlFor="rating">
+          Rating{' '}
+          {errors.rating?.type === 'min' && (
             <span className="text-red-500 text-sm">Minimum rating is 1</span>
           )}
-          {errors.reviews?.type === 'max' && (
+          {errors.rating?.type === 'max' && (
             <span className="text-red-500 text-sm">Maximum rating is 5</span>
           )}
         </Label>
         <input
           type="number"
-          id="reviews"
-          min={0}
-          max={5}
+          id="rating"
+          step="any"
           className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
-          {...register('reviews', { min: 0, max: 5 })}
+          {...register('rating', { min: 0, max: 5 })}
         />
 
-        <Button
-          type="submit"
-          className="border py-1 cursor-pointer"
-          variant={'ghost'}
-          disabled={isSubmitting}
-        >
+        <Label htmlFor="reviews">Total Reviews</Label>
+        <input
+          type="number"
+          id="reviews"
+          className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
+          {...register('reviews')}
+        />
+
+        <Button type="submit" className="border py-1 cursor-pointer" disabled={isSubmitting}>
           {isSubmitting ? (
             <p>
               <Loader2 className="animate-spin" /> Submitting
             </p>
           ) : (
-            'Submit'
+            <p>Submit</p>
           )}
         </Button>
       </form>
@@ -142,20 +138,16 @@ const AddProductForm = () => {
 
 export default AddProductForm;
 
-// useEffect(() => {
-//   submitForm();
-// }, [submitting]);
+// const queryClient = useQueryClient();
 
-// async function submitForm(data) {
-// console.log(data);
-// mutate({ ...data, slug: slugify(data.title) });
-// setSubmitting(true);
-// try {
-//   await addProduct({ ...data, slug: slugify(data.title) });
-//   toast('Successfully Added Product');
-// } catch (error) {
-//   console.log(error);
-//   toast('Error occured');
-// }
-// setSubmitting(false);
+// const { mutate, isError, isPending, error } = useMutation({
+//   mutationKey: ['addProduct'],
+//   mutationFn: addProduct,
+//   onSuccess: () => {
+//     queryClient.invalidateQueries({ queryKey: ['products'] });
+//     toast('Successfully Added Product');
+//   },
+// });
+// function submitForm(data) {
+//   mutate({ ...data, slug: slugify(data.title) });
 // }

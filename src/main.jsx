@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from '@/components/ui/sonner';
 import Cart from './components/Cart.jsx';
 import { CreateProduct } from './components/CreateProduct.jsx';
+import { CartProvider } from './components/context/CartContext.jsx';
 
 const queryClient = new QueryClient();
 
@@ -33,9 +34,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
-      <Toaster />
+      <CartProvider>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Toaster />
+      </CartProvider>
     </QueryClientProvider>
   </StrictMode>
 );
