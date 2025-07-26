@@ -9,12 +9,26 @@ import { CartContext } from './context/CartContext';
 const Card = ({ id, title, description, image, price, rating, reviews, category }) => {
   const { cart, setCart } = useContext(CartContext);
   const [isClicked, setIsClicked] = useState(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(() => {
+    const val = cart.find(item => item.id === id);
+    return val ? val.quantity : 0;
+  });
 
   function handleClick() {
     setCount(c => c + 1);
     setIsClicked(true);
   }
+
+  useEffect(() => {
+    const filteredItem = JSON.parse(localStorage.getItem('cart')).find(item => item.id === id);
+    // console.log('filtered item', filteredItem);
+    if (filteredItem) {
+      setIsClicked(true);
+      setCount(filteredItem.quantity);
+    } else {
+      setCount(0);
+    }
+  }, []);
 
   function increaseQuantity() {
     setCount(c => c + 1);
@@ -39,7 +53,7 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
     }
   }, [isClicked]);
 
-  console.log(cart);
+  // console.log(cart);
 
   return (
     <div className="flex relative flex-col bg-card hover:bg-background justify-between border-[2px] rounded-md w-[240px] h-[320px] lg:w-[300px] lg:h-[450px]">
