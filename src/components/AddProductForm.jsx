@@ -1,5 +1,4 @@
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { slugify } from '../../utils/slugify';
@@ -7,6 +6,7 @@ import { addProduct } from '../supabase/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
+import { Loader2 } from 'lucide-react';
 
 const AddProductForm = () => {
   const form = useForm();
@@ -31,7 +31,6 @@ const AddProductForm = () => {
   });
 
   function submitForm(data) {
-    console.log(data);
     mutate({ ...data, slug: slugify(data.title) });
   }
 
@@ -66,7 +65,9 @@ const AddProductForm = () => {
           {...register('description')}
         />
 
-        <Label htmlFor="category">Category{errors.category && <p className="text-red-600">{errors.category.message}</p>}</Label>
+        <Label htmlFor="category">
+          Category{errors.category && <p className="text-red-600">{errors.category.message}</p>}
+        </Label>
         <input
           type="text"
           id="category"
@@ -82,7 +83,9 @@ const AddProductForm = () => {
           {...register('image')}
         />
 
-        <Label htmlFor="price">Price{errors.price && <p className="text-red-600">{errors.price.message}</p>}</Label>
+        <Label htmlFor="price">
+          Price{errors.price && <p className="text-red-600">{errors.price.message}</p>}
+        </Label>
         <input
           type="number"
           id="price"
@@ -99,16 +102,37 @@ const AddProductForm = () => {
           {...register('rating')}
         />
 
-        <Label htmlFor="reviews">Total Reviews</Label>
+        <Label htmlFor="reviews">
+          Total Reviews
+          {errors.reviews?.type === 'min' && (
+            <span className="text-red-500 text-sm">Minimum rating is 1</span>
+          )}
+          {errors.reviews?.type === 'max' && (
+            <span className="text-red-500 text-sm">Maximum rating is 5</span>
+          )}
+        </Label>
         <input
           type="number"
           id="reviews"
+          min={0}
+          max={5}
           className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
-          {...register('reviews')}
+          {...register('reviews', { min: 0, max: 5 })}
         />
 
-        <Button type="submit" className="border py-1 cursor-pointer" variant={'ghost'} disabled={isSubmitting}>
-          Submit
+        <Button
+          type="submit"
+          className="border py-1 cursor-pointer"
+          variant={'ghost'}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <p>
+              <Loader2 className="animate-spin" /> Submitting
+            </p>
+          ) : (
+            'Submit'
+          )}
         </Button>
       </form>
       <DevTool control={control} />
@@ -117,3 +141,21 @@ const AddProductForm = () => {
 };
 
 export default AddProductForm;
+
+// useEffect(() => {
+//   submitForm();
+// }, [submitting]);
+
+// async function submitForm(data) {
+// console.log(data);
+// mutate({ ...data, slug: slugify(data.title) });
+// setSubmitting(true);
+// try {
+//   await addProduct({ ...data, slug: slugify(data.title) });
+//   toast('Successfully Added Product');
+// } catch (error) {
+//   console.log(error);
+//   toast('Error occured');
+// }
+// setSubmitting(false);
+// }

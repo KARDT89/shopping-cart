@@ -1,8 +1,6 @@
-import { Link } from 'react-router-dom';
-// import FuzzyText from './FuzzyText/FuzzyText';
 
 const ErrorPage = () => {
-  return <div className='text-2xl'>ffdsfdsfdsfsdfa</div>;
+  return <div className='text-2xl'>Error page</div>;
 };
 
 export default ErrorPage;

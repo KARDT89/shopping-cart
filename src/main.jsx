@@ -9,10 +9,6 @@ import ErrorPage from './components/ErrorPage.jsx';
 import ProductPage from './components/ProductPage.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import Admin from './Admin/Admin.jsx';
-// import { Categories } from './Admin/Categories.jsx';
-// // import { ManageProducts } from './Admin/Products.jsx';
-// import Users from './Admin/Users.jsx';
 import { Toaster } from '@/components/ui/sonner';
 import Cart from './components/Cart.jsx';
 import { CreateProduct } from './components/CreateProduct.jsx';
@@ -32,15 +28,6 @@ const router = createBrowserRouter([
       { path: 'create', element: <CreateProduct /> },
     ],
   },
-  // {
-  //   path: 'admin',
-  //   element: <Admin />,
-  //   children: [
-  //     { path: 'products', element: <ManageProducts /> },
-  //     { path: 'categories', element: <Categories /> },
-  //     { path: 'users', element: <Users /> },
-  //   ],
-  // },
 ]);
 
 createRoot(document.getElementById('root')).render(
