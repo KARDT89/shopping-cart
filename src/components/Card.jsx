@@ -21,7 +21,6 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
 
   useEffect(() => {
     const filteredItem = JSON.parse(localStorage.getItem('cart')).find(item => item.id === id);
-    // console.log('filtered item', filteredItem);
     if (filteredItem) {
       setIsClicked(true);
       setCount(filteredItem.quantity);
@@ -50,6 +49,7 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         description: description, 
         image: image,
         price: price,
+        setCount: setCount
       };
       setCart(p => [...p, newCartItem]);
     } else {

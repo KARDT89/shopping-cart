@@ -36,7 +36,7 @@ const AddProductForm = () => {
   return (
     <div>
       <form
-        className="w-sm font-mono flex flex-col gap-3 border p-6 rounded-2xl"
+        className="w-sm font-mono flex flex-col gap-3 border p-6 rounded-lg"
         onSubmit={handleSubmit(submitForm)}
       >
         
