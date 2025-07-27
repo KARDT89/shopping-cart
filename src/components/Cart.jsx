@@ -5,6 +5,16 @@ import { Minus, Plus, X } from 'lucide-react';
 
 const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
+  const [grandTotal, setGrandTotal] = useState(0);
+
+  useEffect(() => {
+
+    const totalPrice = cart.map(everyItem => {
+          return everyItem.quantity * everyItem.price;
+        }).reduce((totalPrice, singleItemPrice) => totalPrice + singleItemPrice, 0)
+      
+        setGrandTotal(totalPrice)
+  }, [cart]);
 
   function handleRemove(id) {
     setCart(prev => prev.filter(item => item.id !== id));
@@ -12,12 +22,14 @@ const Cart = () => {
 
   function decreaseQuantity(id) {
     setCart(prev =>
-      prev.map(item => {
-        if (item.id === id) {
-          return { ...item, quantity: cart.find(p => p.id === id).quantity - 1 };
-        }
-        return item
-      }).filter(item => item.quantity > 0)
+      prev
+        .map(item => {
+          if (item.id === id) {
+            return { ...item, quantity: cart.find(p => p.id === id).quantity - 1 };
+          }
+          return item;
+        })
+        .filter(item => item.quantity > 0)
     );
   }
   function increaseQuantity(id) {
@@ -26,7 +38,7 @@ const Cart = () => {
         if (item.id === id) {
           return { ...item, quantity: cart.find(p => p.id === id).quantity + 1 };
         }
-        return item
+        return item;
       })
     );
   }
@@ -91,7 +103,7 @@ const Cart = () => {
             <div>
               {/* summary */}
               <div className="border min-w-[400px] h-screen max-h-[650px] p-4">
-                <p className="text-xl text-center">Grand Total</p>
+                <p className="text-xl text-center">Grand Total {grandTotal}</p>
               </div>
             </div>
           </div>
