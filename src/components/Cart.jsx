@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CartContext } from './context/CartContext';
+import { CartContext } from '../context/CartContext';
 import { Button } from './ui/button';
 import { Minus, Plus, X } from 'lucide-react';
 
@@ -8,12 +8,13 @@ const Cart = () => {
   const [grandTotal, setGrandTotal] = useState(0);
 
   useEffect(() => {
+    const totalPrice = cart
+      .map(everyItem => {
+        return everyItem.quantity * everyItem.price;
+      })
+      .reduce((totalPrice, singleItemPrice) => totalPrice + singleItemPrice, 0);
 
-    const totalPrice = cart.map(everyItem => {
-          return everyItem.quantity * everyItem.price;
-        }).reduce((totalPrice, singleItemPrice) => totalPrice + singleItemPrice, 0)
-      
-        setGrandTotal(totalPrice)
+    setGrandTotal(totalPrice);
   }, [cart]);
 
   function handleRemove(id) {

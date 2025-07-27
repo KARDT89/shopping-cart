@@ -12,7 +12,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from '@/components/ui/sonner';
 import Cart from './components/Cart.jsx';
 import { CreateProduct } from './components/CreateProduct.jsx';
-import { CartProvider } from './components/context/CartContext.jsx';
+import { CartProvider } from './context/CartContext.jsx';
 
 const queryClient = new QueryClient();
 

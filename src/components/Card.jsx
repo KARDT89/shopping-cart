@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from './ui/button';
 import { useContext, useEffect, useState } from 'react';
 import { Heart, Minus, Plus } from 'lucide-react';
-import { CartContext } from './context/CartContext';
+import { CartContext } from '../context/CartContext';
 
 const Card = ({ id, title, description, image, price, rating, reviews, category }) => {
   const { cart, setCart } = useContext(CartContext);
@@ -46,10 +46,10 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         id: id,
         quantity: count,
         title: title,
-        description: description, 
+        description: description,
         image: image,
         price: price,
-        setCount: setCount
+        setCount: setCount,
       };
       setCart(p => [...p, newCartItem]);
     } else {
