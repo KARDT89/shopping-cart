@@ -48,7 +48,7 @@ export const Products = () => {
         <p>Shop Here</p>
       </div>
       {/* right */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 justify-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 justify-items-center pb-10">
         {products.map(product => (
           <Card
             key={product.id}

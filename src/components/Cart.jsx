@@ -44,26 +44,27 @@ const Cart = () => {
     );
   }
   return (
-    <div className="flex flex-col gap-4 mx-2 flex-1 font-mono">
+    <div className="flex max-h-screen flex-col gap-4 mx-2 flex-1 font-mono">
       {cart.length > 0 ? (
         <>
           <h1 className="text-center text-3xl font-mono">Shopping Cart</h1>
 
           <div className=" lg:flex gap-2">
-            <div className="flex-1 h-[400px] md:h-[650px] border overflow-scroll">
-              <div className="grid grid-cols-5 gap-4 border p-4 items-center text-[10px] lg:text-xl font-semibold sticky top-0 bg-background">
+            <div className="flex-1 h-[420px] md:max-h-[650px] overflow-scroll">
+              <div className="grid grid-cols-5 rounded-lg gap-4 border p-4 items-center text-[10px] lg:text-xl font-semibold sticky top-0 bg-card">
                 <div className="text-center">Image</div>
                 <div className="text-center">Title</div>
                 <div className="text-center">Price</div>
                 <div className="text-center">Quantity</div>
                 <div className="text-center">Total</div>
               </div>
-              {cart.map(c => (
+              <div className='flex flex-col gap-2 pt-2'>
+                  {cart.map(c => (
                 <div
                   id={c.id}
-                  className="grid grid-cols-5 gap-4 border p-4 items-center text-[10px] md:text-lg font-semibold"
+                  className="grid grid-cols-5 gap-4 border rounded-lg p-4 items-center text-[10px] md:text-lg font-semibold bg-card hover:bg-accent dark:hover:bg-background"
                 >
-                  <div className="flex items-center justify-center gap-4 text-center">
+                  <div className="flex items-center justify-center gap-2 md:gap-4 text-center">
                     <button
                       variant={'link'}
                       className={
@@ -72,27 +73,27 @@ const Cart = () => {
                       onClick={() => handleRemove(c.id)}
                     >
                       {' '}
-                      <X className="size-5" />{' '}
+                      <X className="size-3 md:size-5" />{' '}
                     </button>
-                    <img src={c.image} alt={c.title} className="w-30 h-17" />
+                    <img src={c.image} alt={c.title} className="w-15 h-5 md:w-30 md:h-17" />
                   </div>
                   <div className="text-center line-clamp-2">{c.title}</div>
                   <div className="text-center">₹{c.price}</div>
-                  <div className="text-center md:flex items-center rounded-lg justify-center gap-2  border-background/40 font-mono ">
+                  <div className="text-center flex items-center rounded-lg justify-center gap-2  border-background/40 font-mono ">
                     <Button
                       onClick={() => decreaseQuantity(c.id)}
                       variant={'outline'}
                       size={'sm'}
-                      className={'w-[35px] cursor-pointer'}
+                      className={'w-2 h-6 md:w-6 cursor-pointer'}
                     >
                       <Minus />
                     </Button>
-                    <p className="mx-0 text-xl font-stretch-ultra-condensed">{c.quantity}</p>
+                    <p className="mx-0 text-[10px] md:text-xl font-stretch-ultra-condensed">{c.quantity}</p>
                     <Button
                       onClick={() => increaseQuantity(c.id)}
                       variant={'outline'}
                       size={'sm'}
-                      className={'w-[35px] cursor-pointer'}
+                      className={'w-2 h-6 md:w-6 cursor-pointer'}
                     >
                       <Plus />
                     </Button>
@@ -100,11 +101,14 @@ const Cart = () => {
                   <div className="text-center">₹{c.price * c.quantity}</div>
                 </div>
               ))}
+              </div>
+              
             </div>
             <div>
               {/* summary */}
-              <div className="border min-w-[400px] h-screen max-h-[650px] p-4">
-                <p className="text-xl text-center">Grand Total {grandTotal}</p>
+              <div className="border max-w-[400px] flex items-center rounded-lg justify-between flex-col gap-2 h-full md:max-h-[650px] p-4">
+                <p className="text-xl text-center">Grand Total: {grandTotal}</p>
+                <button className='border px-4 py-1 bg-accent cursor-pointer rounded-lg'>Proceed To Checkout</button>
               </div>
             </div>
           </div>
