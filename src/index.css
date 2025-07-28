@@ -3,6 +3,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'dt89';
+  src: url('../public/Slope\ Opera.otf') format('opentype');
+}
+
+#dt89{
+    font-family: dt89;
+}
+
 * {
   transition:
     background-color 0.2s ease,
