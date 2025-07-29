@@ -11,7 +11,7 @@ function App() {
     <div className="bg-background text-foreground font-mono">
       {/* Hero Section */}
 
-      <div className="light:hidden w-full bg-background h-60 md:h-70 absolute right-0 top-13 md:top-16 lg:top-18">
+      <div className="light:hidden w-full bg-background h-45 md:h-70 absolute right-0 top-13 md:top-16 lg:top-18">
         {/* Gradients */}
         <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
         <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
