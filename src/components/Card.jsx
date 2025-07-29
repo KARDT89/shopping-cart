@@ -63,7 +63,7 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
   // console.log(cart);
 
   return (
-    <div className="flex relative flex-col bg-card hover:bg-accent dark:hover:bg-background justify-between shadow-sm rounded-md w-[240px] ">
+    <div className="flex flex-col relative bg-card hover:bg-accent dark:hover:bg-background justify-between shadow-sm rounded-md w-[280px] md:w-[220px] lg:w-[240px]">
      
       <Link to={`/products/${id}`}>
         <img
