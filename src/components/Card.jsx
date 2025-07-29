@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from './ui/button';
 import { useContext, useEffect, useState } from 'react';
-import { Heart, Minus, Plus } from 'lucide-react';
+import {  Minus, Plus } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
+
+
+
 
 const Card = ({ id, title, description, image, price, rating, reviews, category }) => {
   const { cart, setCart } = useContext(CartContext);
@@ -60,7 +63,8 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
   // console.log(cart);
 
   return (
-    <div className="flex relative flex-col bg-card hover:bg-accent dark:hover:bg-background justify-between border-[2px] rounded-md w-[240px] h-[290px]">
+    <div className="flex relative flex-col bg-card hover:bg-accent dark:hover:bg-background justify-between shadow-sm rounded-md w-[240px] ">
+     
       <Link to={`/products/${id}`}>
         <img
           src={image}
@@ -124,6 +128,8 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
           </Button>
         )}
       </div>
+     
+   
     </div>
   );
 };

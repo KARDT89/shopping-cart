@@ -1,7 +1,9 @@
 import Card from './Card';
-import { LoaderCircle } from 'lucide-react';
 import { getAllProducts } from '../supabase/api';
 import { useState, useEffect } from 'react';
+import { BackgroundBeams } from './ui/BackgroundBeams';
+
+
 
 export const Products = () => {
   const [products, setProducts] = useState([]);
@@ -82,7 +84,7 @@ export const Products = () => {
   console.log(searchInput);
 
   return (
-    <div className="flex flex-col gap-6 px-4 md:px-10 pt-4 md:pt-2">
+    <div className="relative flex flex-col gap-6 px-4 md:px-10 pt-4 md:pt-2">
       {/* Heading */}
       <div className="block md:hidden text-center">
         <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground mb-2">
@@ -99,7 +101,7 @@ export const Products = () => {
 
         <input
           type="text"
-          className=" bg-background border-2 w-full lg:w-full max-w-[250px] text-sm px-4 py-1 rounded-lg"
+          className=" bg-background border-2 w-full lg:w-full max-w-[250px] text-sm px-4 py-1 rounded-lg z-10"
           placeholder="search..."
           onChange={e => setSearchInput(e.target.value)}
         />
@@ -112,7 +114,7 @@ export const Products = () => {
             id="sort"
             value={sortOption}
             onChange={handleSortChange}
-            className="border-2 text-sm px-3 py-1 rounded-lg bg-background text-foreground focus:outline-none "
+            className="border-2 text-sm px-3 py-1 rounded-lg bg-background text-foreground focus:outline-none z-10"
           >
             <option value="default">Default</option>
             <option value="priceLowHigh">Price: Low to High</option>
@@ -123,8 +125,10 @@ export const Products = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center pb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center pb-10 z-10">
+       
         {products.map(product => (
+         
           <Card
             key={product.id}
             id={product.id}
@@ -136,8 +140,11 @@ export const Products = () => {
             reviews={product.reviews}
             category={product.category}
           />
+       
         ))}
+        
       </div>
+      {/* <BackgroundBeams /> */}
     </div>
   );
 };

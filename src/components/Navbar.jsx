@@ -5,17 +5,24 @@ import { House, Search, ShoppingCart, Store } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
-import Cart from './Cart';
 import Footer from './Footer';
+import DarkVeil from './DarkVeil';
+import { ShineBorder } from './magicui/shine-border';
+import { AuroraText } from './magicui/aurora-text';
 
 export const Navbar = () => {
   const { cart } = useContext(CartContext);
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col-reverse md:flex-col min-h-screen">
       <nav className="mx-auto my-2 lg:my-4 block md:grid md:grid-cols-3 justify-start backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-black/80 font-mono border rounded-md fixed bottom-0 md:top-0 md:bottom-auto left-0 right-0 z-50">
+        <ShineBorder shineColor={['#A07CFE', '#FE8FB5', '#FFBE7B']} />
         <h1 className="hidden md:block text-xl">
           {' '}
-          <NavLink to={'/'}>ShoppingCart</NavLink>
+          <NavLink to={'/'}>
+            <button className="font-bold tracking-tighter cursor-pointer">
+              Shopping <AuroraText>Cart</AuroraText>
+            </button>
+          </NavLink>
         </h1>
 
         <div className="hidden md:flex gap-4 items-center justify-center text-white/70 ">

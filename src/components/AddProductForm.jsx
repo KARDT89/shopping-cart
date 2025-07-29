@@ -7,6 +7,7 @@ import { addProduct } from '../supabase/api';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
+import { BorderBeam } from './magicui/border-beam';
 
 const AddProductForm = () => {
   const form = useForm({
@@ -36,10 +37,9 @@ const AddProductForm = () => {
   return (
     <div>
       <form
-        className="w-sm font-mono flex flex-col gap-3 border p-6 rounded-lg"
+        className="w-xs md:w-md font-mono flex flex-col gap-3 border p-6 rounded-lg"
         onSubmit={handleSubmit(submitForm)}
       >
-        
         <Label htmlFor="title">
           Title: {errors.title && <p className="text-red-600">{errors.title.message}</p>}
         </Label>
@@ -129,6 +129,7 @@ const AddProductForm = () => {
             <p>Submit</p>
           )}
         </Button>
+        
       </form>
       <DevTool control={control} />
     </div>

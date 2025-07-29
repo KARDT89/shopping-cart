@@ -2,6 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 import { Button } from './ui/button';
 import { Minus, Plus, X } from 'lucide-react';
+import { RippleButton } from './magicui/ripple-button';
+import { BackgroundBeams } from './ui/BackgroundBeams';
+
+
+
 
 const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
@@ -44,7 +49,8 @@ const Cart = () => {
     );
   }
   return (
-    <div className="flex flex-col gap-4 mx-2 font-mono">
+    <div className="relative flex flex-col gap-4 mx-2 font-mono">
+      
       {cart.length > 0 ? (
         <>
           <h1 className="text-center text-3xl font-mono">Shopping Cart</h1>
@@ -62,7 +68,7 @@ const Cart = () => {
               </div>
 
               {/* Cart List */}
-              <div className="flex flex-col gap-2 mt-2">
+              <div className="relative flex flex-col gap-2 mt-2 z-10">
                 {cart.map(c => (
                   <div
                     key={c.id}
@@ -115,11 +121,12 @@ const Cart = () => {
                     <div className="text-center hidden md:block">₹{c.price * c.quantity}</div>
                   </div>
                 ))}
+              
               </div>
             </div>
 
             {/* Summary */}
-            <div className="w-full lg:w-[350px] flex-shrink-0">
+            <div className="relative w-full lg:w-[350px] flex-shrink-0 z-10">
               <div className="border rounded-lg shadow-md bg-card text-foreground p-4 space-y-4">
                 <h2 className="text-xl font-semibold text-center">Order Summary</h2>
 
@@ -158,9 +165,11 @@ const Cart = () => {
                   </button>
                 </div>
 
-                <button className="mt-4 w-full py-2 px-4 bg-accent text-foreground font-semibold rounded-lg hover:bg-accent/90 transition">
+                <RippleButton  rippleColor="#ADD8E6" className="w-full">
                   Proceed to Checkout
-                </button>
+                     
+                </RippleButton>
+             
               </div>
             </div>
           </div>
@@ -170,7 +179,9 @@ const Cart = () => {
           Your cart is empty.
         </div>
       )}
+     <BackgroundBeams />
     </div>
+   
   );
 };
 
