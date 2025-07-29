@@ -13,8 +13,8 @@ import { AuroraText } from './magicui/aurora-text';
 export const Navbar = () => {
   const { cart } = useContext(CartContext);
   return (
-    <div className="flex flex-col-reverse md:flex-col min-h-screen">
-      <nav className="mx-auto my-2 lg:my-4 block md:grid md:grid-cols-3 justify-start backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-black/80 font-mono border rounded-md fixed bottom-0 md:top-0 md:bottom-auto left-0 right-0 z-50">
+    <div className="flex flex-col md:flex-col min-h-screen">
+      <nav className="mx-auto my-2 lg:my-4 block md:grid md:grid-cols-3 justify-start backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-black/80 font-mono border rounded-md fixed top-0 md:bottom-auto left-0 right-0 z-50">
         <ShineBorder shineColor={['#A07CFE', '#FE8FB5', '#FFBE7B']} />
         <h1 className="hidden md:block text-xl">
           {' '}

@@ -84,7 +84,7 @@ export const Products = () => {
   console.log(searchInput);
 
   return (
-    <div className="relative flex flex-col gap-6 px-4 md:px-10 pt-4 md:pt-2">
+    <div className="relative flex flex-col gap-6 px-4 md:px-10 pt-16 md:pt-2">
       {/* Heading */}
       <div className="block md:hidden text-center">
         <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-foreground mb-2">
@@ -125,7 +125,7 @@ export const Products = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 justify-items-center pb-10 z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6 md:pb-4 justify-items-center z-10">
        
         {products.map(product => (
          

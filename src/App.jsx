@@ -11,7 +11,7 @@ function App() {
     <div className="bg-background text-foreground font-mono">
       {/* Hero Section */}
 
-      <div className="light:hidden w-full bg-background h-60 md:h-80 absolute right-0 top-0 md:top-16 lg:top-18">
+      <div className="light:hidden w-full bg-background h-60 md:h-70 absolute right-0 top-13 md:top-16 lg:top-18">
         {/* Gradients */}
         <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
         <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
@@ -30,14 +30,14 @@ function App() {
         {/* Radial Gradient to prevent sharp edges */}
         <div className="absolute inset-0 w-full h-full bg-background [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
       </div>
-      <section className="py-20 px-6 md:px-10">
-        <div className="max-w-4xl flex flex-col items-center gap-2 mx-auto text-center">
+      <section className=" py-20 md:py-10 px-6 md:px-10">
+        <div className="max-w-4xl flex flex-col items-center gap-4 mx-auto text-center">
           <img
             src="/odin-lined.png"
             alt="odin"
-            className="invert pb-6 dark:invert-0 w-20 md:w-50"
+            className="invert pb-6 dark:invert-0 w-20 md:w-40"
           />
-          <p className="text-3xl text-foreground flex flex-col md:flex-row md:gap-4 md:text-4xl font-bold mb-6">
+          <p className="text-3xl text-foreground flex flex-col md:flex-row md:gap-4 md:text-4xl font-bold">
             Welcome to{' '}
             <GradientText
               colors={['#40ffaa', '#4079ff', '#40ffaa', '#4079ff', '#40ffaa']}
@@ -48,11 +48,14 @@ function App() {
               Shopping Cart
             </GradientText>
           </p>
+          <div>
 
-          <p className="text-base md:text-lg text-muted-foreground mb-8">
-            A minimalist E-Commerce project built with React. Inspired by The Odin Project
-            "ShoppingCart" Project.
+          <p className="text-base md:text-lg text-muted-foreground ">
+            A minimalist E-Commerce project built with React.
+          </p><p className="text-base md:text-lg text-muted-foreground ">
+            Inspired by The Odin Project "ShoppingCart" Project.
           </p>
+          </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to={'/products'}>
