@@ -44,79 +44,131 @@ const Cart = () => {
     );
   }
   return (
-    <div className="flex max-h-screen flex-col gap-4 mx-2 flex-1 font-mono">
+    <div className="flex flex-col gap-4 mx-2 font-mono">
       {cart.length > 0 ? (
         <>
           <h1 className="text-center text-3xl font-mono">Shopping Cart</h1>
 
-          <div className=" lg:flex gap-2">
-            <div className="flex-1 h-[420px] md:max-h-[650px] overflow-scroll">
-              <div className="grid grid-cols-5 rounded-lg gap-4 border p-4 items-center text-[10px] lg:text-xl font-semibold sticky top-0 bg-card">
+          <div className="flex flex-col-reverse md:flex-col lg:flex-row gap-4">
+            {/* Cart Items */}
+            <div className="flex-1 max-h-[70vh] overflow-auto">
+              {/* Header */}
+              <div className="hidden md:grid grid-cols-5 gap-4 rounded-lg border p-4 font-semibold text-sm bg-card sticky top-0 z-10">
                 <div className="text-center">Image</div>
                 <div className="text-center">Title</div>
                 <div className="text-center">Price</div>
                 <div className="text-center">Quantity</div>
                 <div className="text-center">Total</div>
               </div>
-              <div className='flex flex-col gap-2 pt-2'>
-                  {cart.map(c => (
-                <div
-                  id={c.id}
-                  className="grid grid-cols-5 gap-4 border rounded-lg p-4 items-center text-[10px] md:text-lg font-semibold bg-card hover:bg-accent dark:hover:bg-background"
-                >
-                  <div className="flex items-center justify-center gap-2 md:gap-4 text-center">
-                    <button
-                      variant={'link'}
-                      className={
-                        'text-red-600 rounded-4xl cursor-pointer hover:bg-red-100/80 p-0 m-0'
-                      }
-                      onClick={() => handleRemove(c.id)}
-                    >
-                      {' '}
-                      <X className="size-3 md:size-5" />{' '}
-                    </button>
-                    <img src={c.image} alt={c.title} className="w-15 h-5 md:w-30 md:h-17" />
+
+              {/* Cart List */}
+              <div className="flex flex-col gap-2 mt-2">
+                {cart.map(c => (
+                  <div
+                    key={c.id}
+                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 border rounded-lg p-4 md:p-0 items-center text-xs sm:text-sm md:text-base bg-card hover:bg-accent/10 transition"
+                  >
+                    {/* Image + Remove */}
+                    <div className="flex items-center justify-center gap-2 col-span-1">
+                      <button
+                        className="text-red-600 hover:bg-red-100 p-1 rounded-full"
+                        onClick={() => handleRemove(c.id)}
+                        aria-label="Remove Item"
+                      >
+                        <X className="w-4 h-4 md:w-5 md:h-5" />
+                      </button>
+                      <img
+                        src={c.image}
+                        alt={c.title}
+                        className="w-10 h-10 sm:w-16 sm:h-16 object-contain"
+                      />
+                    </div>
+
+                    {/* Title */}
+                    <div className="text-center line-clamp-2">{c.title}</div>
+
+                    {/* Price */}
+                    <div className="text-center hidden md:block">₹{c.price}</div>
+
+                    {/* Quantity Controls */}
+                    <div className="flex justify-center items-center gap-2">
+                      <Button
+                        onClick={() => decreaseQuantity(c.id)}
+                        size="sm"
+                        variant="outline"
+                        className="w-6 h-6"
+                      >
+                        <Minus className="w-3 h-3" />
+                      </Button>
+                      <span>{c.quantity}</span>
+                      <Button
+                        onClick={() => increaseQuantity(c.id)}
+                        size="sm"
+                        variant="outline"
+                        className="w-6 h-6"
+                      >
+                        <Plus className="w-3 h-3" />
+                      </Button>
+                    </div>
+
+                    {/* Total */}
+                    <div className="text-center hidden md:block">₹{c.price * c.quantity}</div>
                   </div>
-                  <div className="text-center line-clamp-2">{c.title}</div>
-                  <div className="text-center">₹{c.price}</div>
-                  <div className="text-center flex items-center rounded-lg justify-center gap-2  border-background/40 font-mono ">
-                    <Button
-                      onClick={() => decreaseQuantity(c.id)}
-                      variant={'outline'}
-                      size={'sm'}
-                      className={'w-2 h-6 md:w-6 cursor-pointer'}
-                    >
-                      <Minus />
-                    </Button>
-                    <p className="mx-0 text-[10px] md:text-xl font-stretch-ultra-condensed">{c.quantity}</p>
-                    <Button
-                      onClick={() => increaseQuantity(c.id)}
-                      variant={'outline'}
-                      size={'sm'}
-                      className={'w-2 h-6 md:w-6 cursor-pointer'}
-                    >
-                      <Plus />
-                    </Button>
-                  </div>
-                  <div className="text-center">₹{c.price * c.quantity}</div>
-                </div>
-              ))}
+                ))}
               </div>
-              
             </div>
-            <div>
-              {/* summary */}
-              <div className="border max-w-[400px] flex items-center rounded-lg justify-between flex-col gap-2 h-full md:max-h-[650px] p-4">
-                <p className="text-xl text-center">Grand Total: {grandTotal}</p>
-                <button className='border px-4 py-1 bg-accent cursor-pointer rounded-lg'>Proceed To Checkout</button>
+
+            {/* Summary */}
+            <div className="w-full lg:w-[350px] flex-shrink-0">
+              <div className="border rounded-lg shadow-md bg-card text-foreground p-4 space-y-4">
+                <h2 className="text-xl font-semibold text-center">Order Summary</h2>
+
+                <div className="flex justify-between text-sm">
+                  <span>Total Items:</span>
+                  <span>{cart.reduce((acc, item) => acc + item.quantity, 0)}</span>
+                </div>
+
+                <div className="flex justify-between text-sm">
+                  <span>Estimated Tax:</span>
+                  <span>₹{Math.round(grandTotal * 0.05)}</span>
+                </div>
+
+                <div className="flex justify-between text-lg font-medium border-t pt-4">
+                  <span>Subtotal:</span>
+                  <span>₹{grandTotal}</span>
+                </div>
+
+                <div className="text-green-700 text-sm text-center bg-green-50 border border-green-300 rounded-md p-2">
+                  🎉 You qualify for free delivery!
+                </div>
+
+                {/* Discount Code */}
+                <div className="flex flex-col gap-2 mt-2">
+                  <label htmlFor="coupon" className="text-sm font-medium">
+                    Discount Code
+                  </label>
+                  <input
+                    type="text"
+                    id="coupon"
+                    placeholder="Enter code"
+                    className="border rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-accent/50"
+                  />
+                  <button className="text-xs underline text-accent-foreground hover:text-foreground w-fit">
+                    Apply Code
+                  </button>
+                </div>
+
+                <button className="mt-4 w-full py-2 px-4 bg-accent text-foreground font-semibold rounded-lg hover:bg-accent/90 transition">
+                  Proceed to Checkout
+                </button>
               </div>
             </div>
           </div>
         </>
       ) : (
-        <p className="flex items-center justify-center pt-50 text-center text-2xl font-mono">
-          Your cart is Empty
-        </p>
+        <div className="flex justify-center items-center h-100 overflow-auto text-2xl font-mono">
+          Your cart is empty.
+        </div>
       )}
     </div>
   );
