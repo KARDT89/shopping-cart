@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { useContext, useEffect, useState } from 'react';
 import {  Minus, Plus } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
+import { Badge } from './ui/badge';
 
 
 
@@ -69,7 +70,7 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         <img
           src={image}
           alt={title}
-          className="h-[150px] w-full object-scale-down bg-white border-b-2"
+          className="h-[150px] w-full object-scale-down bg-white border-b-2 rounded-t-lg"
         />
         <div className="flex flex-1 flex-col justify-between font-bold text-sm gap-1 p-2">
           <h1 className="line-clamp-1 text-lg capitalize">{title}</h1>
@@ -93,9 +94,9 @@ const Card = ({ id, title, description, image, price, rating, reviews, category 
         </div>
       </Link>
       <div className="flex justify-end items-center mx-2 mb-2">
-        <p className="bg-green-500 px-2 text-sm absolute top-0 left-0 capitalize font-mono rounded-r-md text-black">
+        <Badge className={'bg-green-500/70 absolute top-1 left-1 text-black capitalize font-mono'}>
           {category}
-        </p>
+        </Badge>
         {/* <Heart className={'text-red-500 text-sm rounded-full absolute top-1.5 right-2 cursor-pointer hover:fill-red-500'}/> */}
         {isClicked && count > 0 ? (
           <div className="flex items-center rounded-lg justify-center gap-2  border-background/40 font-mono ">

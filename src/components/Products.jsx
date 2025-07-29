@@ -96,7 +96,7 @@ export const Products = () => {
       </div>
 
       {/* Sort Dropdown */}
-      <div className="flex flex-col gap-4 md:flex-row md:justify-between items-center mx-8">
+      <div className="flex flex-col gap-4 md:flex-row md:justify-between items-center">
         {/* search */}
 
         <input
