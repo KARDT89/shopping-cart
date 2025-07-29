@@ -19,12 +19,21 @@ class Service {
     }
   }
 
+  async getAllCategories() {
+    try {
+      const { data } = await this.supabase.from('categories').select();
+      return data
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getProductById(id) {
     const { data, error } = await this.supabase.from('products').select().eq('id', id).single();
     return { data, error };
   }
 
-  async addProducts(title, description, slug, category, image, price, rating, reviews, user) {
+  async addProducts(user, title, description, slug, category, image, price, rating, reviews) {
     const { error, data } = await this.supabase.from('products').insert({
       user: user,
       slug: slug,

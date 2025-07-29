@@ -5,6 +5,11 @@ export async function getAllProducts() {
   return response;
 }
 
+export async function getAllCategories() {
+  const response = await supabaseService.getAllCategories();
+  return response;
+}
+
 export async function getProductById(id) {
   const { data, error } = await supabaseService.getProductById(id);
   return data;

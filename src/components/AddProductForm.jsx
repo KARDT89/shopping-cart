@@ -2,8 +2,8 @@ import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { slugify } from '../../utils/slugify';
-import { addProduct, getCurrentSession } from '../supabase/api';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addProduct, getAllCategories, getCurrentSession } from '../supabase/api';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
@@ -47,6 +47,12 @@ const AddProductForm = () => {
       console.log(e);
     },
   });
+
+  const {data: categories, isLoading, error} = useQuery({
+    queryKey: ['categories'],
+    queryFn: getAllCategories
+  })
+  
   async function submitForm(data) {
     try {
       const user = await getUser();
@@ -68,6 +74,8 @@ const AddProductForm = () => {
     }
     return data.session.user.id;
   };
+
+  if(isLoading) return <div className='flex gap-2'><Loader2 className='animate-spin'/>Loading...</div>
 
   return (
     <div>
@@ -106,12 +114,15 @@ const AddProductForm = () => {
         <Label htmlFor="category">
           Category{errors.category && <p className="text-red-600">{errors.category.message}</p>}
         </Label>
-        <input
-          type="text"
+        <select
           id="category"
           className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('category', { required: 'Category is required' })}
-        />
+        >
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>{cat.category}</option>
+          ))}
+        </select>
 
         <Label htmlFor="image">Image Link</Label>
         <input
