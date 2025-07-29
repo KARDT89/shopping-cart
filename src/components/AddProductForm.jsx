@@ -2,18 +2,18 @@ import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { slugify } from '../../utils/slugify';
-import { addProduct } from '../supabase/api';
-// import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addProduct, getCurrentSession } from '../supabase/api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
-import { BorderBeam } from './magicui/border-beam';
+import { useEffect } from 'react';
 
 const AddProductForm = () => {
   const form = useForm({
     defaultValues: {
-      title: ""
-    }
+      title: '',
+    },
   });
   const {
     register,
@@ -24,15 +24,50 @@ const AddProductForm = () => {
   } = form;
   const watchTitle = watch('title');
 
+  // async function submitForm(data) {
+  //   try {
+  //     await addProduct({ ...data, slug: slugify(data.title), user: getUser() });
+  //     toast('Successfully Added Product');
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast('Error occured');
+  //   }
+  // }
+
+  const queryClient = useQueryClient();
+
+  const { mutate, isError, isPending, error } = useMutation({
+    mutationKey: ['addProduct'],
+    mutationFn: addProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+      toast('Successfully Added Product');
+    },
+    isError: () => {
+      console.log(error); 
+    }
+  });
   async function submitForm(data) {
     try {
-      await addProduct({ ...data, slug: slugify(data.title) });
-      toast('Successfully Added Product');
-    } catch (error) {
-      console.log(error);
-      toast('Error occured');
+      const user = await getUser();
+      console.log({
+        ...data,
+        slug: slugify(data.title),
+        user,
+      });
+      mutate({ ...data, slug: slugify(data.title), user });
+    } catch (e) {
+      toast.error('Could not add product: ' + e.message);
     }
   }
+
+  const getUser = async () => {
+    const { data, error } = await getCurrentSession();
+    if (error || !data?.session?.user?.id) {
+      throw new Error('No active user session found');
+    }
+    return data.session.user.id;
+  };
 
   return (
     <div>
@@ -122,14 +157,13 @@ const AddProductForm = () => {
 
         <Button type="submit" className="border py-1 cursor-pointer" disabled={isSubmitting}>
           {isSubmitting ? (
-            <p>
+            <p className="flex gap-2 items-center justify-center">
               <Loader2 className="animate-spin" /> Submitting
             </p>
           ) : (
             <p>Submit</p>
           )}
         </Button>
-        
       </form>
       <DevTool control={control} />
     </div>
@@ -137,17 +171,3 @@ const AddProductForm = () => {
 };
 
 export default AddProductForm;
-
-// const queryClient = useQueryClient();
-
-// const { mutate, isError, isPending, error } = useMutation({
-//   mutationKey: ['addProduct'],
-//   mutationFn: addProduct,
-//   onSuccess: () => {
-//     queryClient.invalidateQueries({ queryKey: ['products'] });
-//     toast('Successfully Added Product');
-//   },
-// });
-// function submitForm(data) {
-//   mutate({ ...data, slug: slugify(data.title) });
-// }

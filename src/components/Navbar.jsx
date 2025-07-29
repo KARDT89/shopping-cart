@@ -2,16 +2,26 @@ import { NavLink, Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import ModeToggle from './ModeToggle';
 import { House, Search, ShoppingCart, Store } from 'lucide-react';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 import Footer from './Footer';
-import DarkVeil from './DarkVeil';
 import { ShineBorder } from './magicui/shine-border';
 import { AuroraText } from './magicui/aurora-text';
+import { getCurrentSession } from '@/supabase/api';
 
 export const Navbar = () => {
   const { cart } = useContext(CartContext);
+  const [session, setSession] = useState(false);
+  useEffect(() => {
+    const getUser = async () => {
+      const { data, error } = await getCurrentSession();
+      if (data.session) {
+        setSession(true);
+        console.log(data.session);
+      }
+    };
+    getUser();
+  }, []);
   return (
     <div className="flex flex-col md:flex-col min-h-screen">
       <nav className="mx-auto my-2 lg:my-4 block md:grid md:grid-cols-3 justify-start backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-black/80 font-mono border rounded-md fixed top-0 md:bottom-auto left-0 right-0 z-50">
@@ -32,12 +42,14 @@ export const Navbar = () => {
           >
             Active
           </NavLink>
-          <NavLink
-            to="/create"
-            className={({ isActive }) => (isActive ? 'text-white' : 'hover:text-primary')}
-          >
-            Create
-          </NavLink>
+          {session && (
+            <NavLink
+              to="/create"
+              className={({ isActive }) => (isActive ? 'text-white' : 'hover:text-primary')}
+            >
+              Create
+            </NavLink>
+          )}
         </div>
         <div className="grid grid-cols-5 justify-items-center md:flex md:items-center md:justify-end gap-4">
           {/* <input

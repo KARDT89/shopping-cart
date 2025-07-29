@@ -81,8 +81,6 @@ export const Products = () => {
       </div>
     );
 
-  console.log(searchInput);
-
   return (
     <div className="relative flex flex-col gap-6 px-4 md:px-10 pt-16 md:pt-2">
       {/* Heading */}

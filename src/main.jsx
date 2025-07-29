@@ -13,6 +13,9 @@ import { Toaster } from '@/components/ui/sonner';
 import Cart from './components/Cart.jsx';
 import { CreateProduct } from './components/CreateProduct.jsx';
 import { CartProvider } from './context/CartContext.jsx';
+import Login from './components/auth/Login';
+import Register from './components/auth/Signup';
+import ForgotPassword from './components/auth/ForgotPassword';
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,9 @@ const router = createBrowserRouter([
       { path: 'products/:id', element: <ProductPage /> },
       { path: 'cart', element: <Cart /> },
       { path: 'create', element: <CreateProduct /> },
+      { path: 'login', element: <Login /> },
+      { path: 'signup', element: <Register /> },
+      { path: 'forgot-password', element: <ForgotPassword /> },
     ],
   },
 ]);

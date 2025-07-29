@@ -24,8 +24,9 @@ class Service {
     return { data, error };
   }
 
-  async addProducts(title, description, slug, category, image, price, rating, reviews) {
+  async addProducts(title, description, slug, category, image, price, rating, reviews, user) {
     const { error, data } = await this.supabase.from('products').insert({
+      user: user,
       slug: slug,
       title: title,
       description: description,
@@ -37,6 +38,20 @@ class Service {
     });
     if (error) throw error;
     return data;
+  }
+
+  async signInWithOAuth(provider) {
+    await this.supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `http://localhost:5173/products`,
+      },
+    });
+  }
+
+  async getSession() {
+    const { data, error } = await this.supabase.auth.getSession();
+    return { data, error };
   }
 }
 

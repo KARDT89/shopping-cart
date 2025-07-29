@@ -7,9 +7,6 @@ import {  Minus, Plus } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
 import { Badge } from './ui/badge';
 
-
-
-
 const Card = ({ id, title, description, image, price, rating, reviews, category }) => {
   const { cart, setCart } = useContext(CartContext);
   const [isClicked, setIsClicked] = useState(false);

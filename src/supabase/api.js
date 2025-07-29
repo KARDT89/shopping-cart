@@ -11,8 +11,9 @@ export async function getProductById(id) {
 }
 
 export async function addProduct(product) {
-  const { title, description, slug, category, image, price, rating, reviews } = product;
+  const { title, description, slug, category, image, price, rating, reviews, user } = product;
   await supabaseService.addProducts(
+    user,
     title,
     description,
     slug,
@@ -22,4 +23,12 @@ export async function addProduct(product) {
     rating,
     reviews
   );
+}
+export async function GithubLogin() {
+  await supabaseService.signInWithOAuth('github');
+}
+
+export async function getCurrentSession(){
+  const { data, error } = await supabaseService.getSession();
+  return { data, error };
 }
