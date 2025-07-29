@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
-import { useEffect } from 'react';
+import { BackgroundBeams } from './ui/BackgroundBeams';
 
 const AddProductForm = () => {
   const form = useForm({
@@ -36,16 +36,16 @@ const AddProductForm = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate, isError, isPending, error } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ['addProduct'],
     mutationFn: addProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       toast('Successfully Added Product');
     },
-    isError: () => {
-      console.log(error); 
-    }
+    onError: e => {
+      console.log(e);
+    },
   });
   async function submitForm(data) {
     try {
@@ -72,7 +72,7 @@ const AddProductForm = () => {
   return (
     <div>
       <form
-        className="w-xs md:w-md font-mono flex flex-col gap-3 border p-6 rounded-lg"
+        className="relative w-xs md:w-md font-mono flex flex-col gap-3 border p-6 rounded-lg z-50"
         onSubmit={handleSubmit(submitForm)}
       >
         <Label htmlFor="title">
@@ -166,6 +166,7 @@ const AddProductForm = () => {
         </Button>
       </form>
       <DevTool control={control} />
+      <BackgroundBeams />
     </div>
   );
 };
