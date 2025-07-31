@@ -8,8 +8,12 @@ import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
 import { BackgroundBeams } from './ui/BackgroundBeams';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const AddProductForm = () => {
+  const navigate = useNavigate()
   const form = useForm({
     defaultValues: {
       title: '',
@@ -42,6 +46,7 @@ const AddProductForm = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       toast('Successfully Added Product');
+      navigate("/products")
     },
     onError: e => {
       console.log(e);

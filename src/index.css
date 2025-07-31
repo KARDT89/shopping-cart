@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: 'dt89';
-  src: url('../public/Slope\ Opera.otf') format('opentype');
+  src: url('/Slope\ Opera.otf') format('opentype');
 }
 
 #dt89{
