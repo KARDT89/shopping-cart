@@ -3,8 +3,6 @@ import { getAllProducts } from '../supabase/api';
 import { useState, useEffect } from 'react';
 import { BackgroundBeams } from './ui/BackgroundBeams';
 
-
-
 export const Products = () => {
   const [products, setProducts] = useState([]);
   const [originalProducts, setOriginalProducts] = useState([]);
@@ -59,7 +57,9 @@ export const Products = () => {
     const query = searchInput.toLowerCase();
     const answer = originalProducts.filter(
       item =>
-        item.title.toLowerCase().includes(query) || item.description.toLowerCase().includes(query) || item.category.toLowerCase().includes(query)
+        item.title.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
     );
     setProducts(answer);
   }, [searchInput, originalProducts]);
@@ -124,9 +124,7 @@ export const Products = () => {
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6 md:pb-4 justify-items-center z-10">
-       
         {products.map(product => (
-         
           <Card
             key={product.id}
             id={product.id}
@@ -138,9 +136,7 @@ export const Products = () => {
             reviews={product.reviews}
             category={product.category}
           />
-       
         ))}
-        
       </div>
       {/* <BackgroundBeams /> */}
     </div>

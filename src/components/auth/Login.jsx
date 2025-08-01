@@ -8,21 +8,19 @@ import { Fingerprint, Github, Loader } from 'lucide-react';
 import { toast } from 'sonner';
 import { GithubLogin } from '@/supabase/api';
 
-
-
 const Login = () => {
-     const [success, setIsSuccess] = useState(false);
-    const [isPending, setIsPending] = useState(false)
-    async function githubLogin() {
-    await GithubLogin(); 
+  const [success, setIsSuccess] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  async function githubLogin() {
+    await GithubLogin();
     setIsSuccess(true);
   }
 
-//   useEffect(() => {
-//     if (success) {
-//       toast("Successfully Logged In");
-//     }
-//   }, [success]);
+  //   useEffect(() => {
+  //     if (success) {
+  //       toast("Successfully Logged In");
+  //     }
+  //   }, [success]);
 
   return (
     <div className={'flex pt-20 w-full items-center justify-center'}>
@@ -72,7 +70,7 @@ const Login = () => {
           </div>
         </div>
         <div className={'flex w-full flex-col items-center justify-center gap-4 pt-4'}>
-          <Button variant={'outline'} className={'w-full border-2'} >
+          <Button variant={'outline'} className={'w-full border-2'}>
             <img src={'google.svg'} width={'20'} height={'20'} alt={'google'} />
             Continue with Google
           </Button>

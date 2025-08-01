@@ -5,9 +5,6 @@ import { Minus, Plus, X } from 'lucide-react';
 import { RippleButton } from './magicui/ripple-button';
 import { BackgroundBeams } from './ui/BackgroundBeams';
 
-
-
-
 const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
   const [grandTotal, setGrandTotal] = useState(0);
@@ -50,7 +47,6 @@ const Cart = () => {
   }
   return (
     <div className="relative flex flex-col gap-4 mx-2 font-mono">
-      
       {cart.length > 0 ? (
         <>
           <h1 className="text-center text-3xl font-mono">Shopping Cart</h1>
@@ -121,7 +117,6 @@ const Cart = () => {
                     <div className="text-center hidden md:block">₹{c.price * c.quantity}</div>
                   </div>
                 ))}
-              
               </div>
             </div>
 
@@ -165,11 +160,9 @@ const Cart = () => {
                   </button>
                 </div>
 
-                <RippleButton  rippleColor="#ADD8E6" className="w-full">
+                <RippleButton rippleColor="#ADD8E6" className="w-full">
                   Proceed to Checkout
-                     
                 </RippleButton>
-             
               </div>
             </div>
           </div>
@@ -179,9 +172,8 @@ const Cart = () => {
           Your cart is empty.
         </div>
       )}
-     <BackgroundBeams />
+      <BackgroundBeams />
     </div>
-   
   );
 };
 

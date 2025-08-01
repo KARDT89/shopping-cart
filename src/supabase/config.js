@@ -22,7 +22,7 @@ class Service {
   async getAllCategories() {
     try {
       const { data } = await this.supabase.from('categories').select();
-      return data
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +61,28 @@ class Service {
   async getSession() {
     const { data, error } = await this.supabase.auth.getSession();
     return { data, error };
+  }
+
+  async signUpNewUser(email, password) {
+    const { data, error } = await this.supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        emailRedirectTo: 'https://example.com/welcome',
+      },
+    });
+    return { data, error };
+  }
+  async signInWithEmail(email, password) {
+    const { data, error } = await this.supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+    return { data, error };
+  }
+  async signOut() {
+    const { error } = await this.supabase.auth.signOut();
+    return error;
   }
 }
 

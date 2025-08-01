@@ -33,7 +33,22 @@ export async function GithubLogin() {
   await supabaseService.signInWithOAuth('github');
 }
 
-export async function getCurrentSession(){
+export async function getCurrentSession() {
   const { data, error } = await supabaseService.getSession();
   return { data, error };
+}
+
+export async function signUpNewUser(email, password) {
+  const { data, error } = await supabaseService.signUpNewUser(email, password);
+  return { data, error };
+}
+
+export async function signInWithEmail(email, password) {
+  const { data, error } = await supabaseService.signInWithEmail(email, password);
+  return { data, error };
+}
+
+export async function signOut() {
+  const { error } = await supabaseService.signOut();
+  return error;
 }

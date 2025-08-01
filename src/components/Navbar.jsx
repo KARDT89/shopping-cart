@@ -7,21 +7,47 @@ import { CartContext } from '../context/CartContext';
 import Footer from './Footer';
 import { ShineBorder } from './magicui/shine-border';
 import { AuroraText } from './magicui/aurora-text';
-import { getCurrentSession } from '@/supabase/api';
+import { getCurrentSession, signOut } from '@/supabase/api';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { Button } from './ui/button';
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   const { cart } = useContext(CartContext);
   const [session, setSession] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const getUser = async () => {
+    const { data, error } = await getCurrentSession();
+    if (data.session) {
+      setSession(true);
+      setUserData(data.session);
+      console.log(data);
+    }
+  };
   useEffect(() => {
-    const getUser = async () => {
-      const { data, error } = await getCurrentSession();
-      if (data.session) {
-        setSession(true);
-        console.log(data.session);
-      }
-    };
     getUser();
   }, []);
+
+  async function handleLogout() {
+    const { error } = await signOut();
+    if (error) {
+      toast(error);
+    } else {
+      window.location.reload();
+      navigate('/');
+    }
+  }
+
   return (
     <div className="flex flex-col md:flex-col min-h-screen">
       <nav className="mx-auto my-2 lg:my-4 block md:grid md:grid-cols-3 justify-start backdrop-blur-sm p-2.5 lg:px-8 w-[95%] max-w-[200rem] text-md text-white bg-black/80 font-mono border rounded-md fixed top-0 md:bottom-auto left-0 right-0 z-50">
@@ -77,6 +103,26 @@ export const Navbar = () => {
             )}
           </Link>
           <ModeToggle />
+          {session && (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src={userData?.user?.user_metadata?.avatar_url} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>{userData?.user?.user_metadata?.user_name}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <button variant={'ghost'} className={'p-0 m-0'} onClick={handleLogout}>
+                    Logout
+                  </button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </nav>
       <div className="px-4 py-4 pb-20 md:pb-0 md:py-20 lg:px-10 bg-background flex-1 text-foreground">

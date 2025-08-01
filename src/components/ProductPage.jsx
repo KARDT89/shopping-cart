@@ -56,8 +56,7 @@ const ProductPage = () => {
 
 export default ProductPage;
 
-
 // const { data: product, isLoading, error } = useQuery({
-  //   queryKey: ['product', productID],
-  //   queryFn: () => getProductById(productID),
-  // });
+//   queryKey: ['product', productID],
+//   queryFn: () => getProductById(productID),
+// });

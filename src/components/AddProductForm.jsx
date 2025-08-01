@@ -10,10 +10,8 @@ import { Loader2 } from 'lucide-react';
 import { BackgroundBeams } from './ui/BackgroundBeams';
 import { useNavigate } from 'react-router-dom';
 
-
-
 const AddProductForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const form = useForm({
     defaultValues: {
       title: '',
@@ -46,18 +44,22 @@ const AddProductForm = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       toast('Successfully Added Product');
-      navigate("/products")
+      navigate('/products');
     },
     onError: e => {
       console.log(e);
     },
   });
 
-  const {data: categories, isLoading, error} = useQuery({
+  const {
+    data: categories,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['categories'],
-    queryFn: getAllCategories
-  })
-  
+    queryFn: getAllCategories,
+  });
+
   async function submitForm(data) {
     try {
       const user = await getUser();
@@ -80,7 +82,13 @@ const AddProductForm = () => {
     return data.session.user.id;
   };
 
-  if(isLoading) return <div className='flex gap-2'><Loader2 className='animate-spin'/>Loading...</div>
+  if (isLoading)
+    return (
+      <div className="flex gap-2">
+        <Loader2 className="animate-spin" />
+        Loading...
+      </div>
+    );
 
   return (
     <div>
@@ -124,8 +132,10 @@ const AddProductForm = () => {
           className="lg:block bg-background border text-sm px-4 py-1 rounded-md"
           {...register('category', { required: 'Category is required' })}
         >
-          {categories.map((cat) => (
-            <option key={cat.id} value={cat.id}>{cat.category}</option>
+          {categories.map(cat => (
+            <option key={cat.id} value={cat.id}>
+              {cat.category}
+            </option>
           ))}
         </select>
 

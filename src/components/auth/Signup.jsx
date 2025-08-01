@@ -1,34 +1,46 @@
-'use client'
+'use client';
 
-import React, {useState} from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { Fingerprint, Github } from "lucide-react";
+import React, { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { Fingerprint, Github } from 'lucide-react';
+import { signUpNewUser } from '@/supabase/api';
 
-import {Loader} from "lucide-react";
-
+import { Loader } from 'lucide-react';
 
 const Register = () => {
-  const [isPending, setIsPending] = useState(false)
+  const [isPending, setIsPending] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formdata = new FormData(e.target);
+    const email = formdata.get('email');
+    const password = formdata.get('password');
+    await signUpNewUser(email, password);
+  }
 
   return (
-    <div className={"flex pt-20 w-full items-center justify-center"}>
-      <div className={"w-full max-w-sm rounded-lg border-4 p-8"}>
+    <div className={'flex pt-20 w-full items-center justify-center'}>
+      <div className={'w-full max-w-sm rounded-lg border-4 p-8'}>
         <h2 className="mb-6 text-center font-sans text-3xl font-bold">Signup</h2>
-        <form className={"space-x-4"}>
-          <span className={"flex flex-col items-center justify-center gap-4"}>
-            <Input type="text" placeholder="Name" name={'name'}/>
-            <Input type="email" placeholder="Email" name={'email'}/>
-            <Input type="password" placeholder="Password" name={'password'}/>
-            <Button variant={"outline"} className={"w-full"} disabled={isPending} type={"submit"}>
-              {isPending ? <>
-                Creating your Account <Loader className="animate-spin"/>
-              </> : 'Sign up'}
+        <form className={'space-x-4'} onSubmit={handleSubmit}>
+          <span className={'flex flex-col items-center justify-center gap-4'}>
+            <Input type="text" placeholder="Name" name={'name'} />
+            <Input type="email" placeholder="Email" name={'email'} />
+            <Input type="password" placeholder="Password" name={'password'} />
+            <Button variant={'outline'} className={'w-full'} disabled={isPending} type={'submit'}>
+              {isPending ? (
+                <>
+                  Creating your Account <Loader className="animate-spin" />
+                </>
+              ) : (
+                'Sign up'
+              )}
             </Button>
-            <span className={"flex items-center justify-center gap-2"}>
+            <span className={'flex items-center justify-center gap-2'}>
               Already have an account?
-              <Link to={"/login"} className={"hover:underline"}>
+              <Link to={'/login'} className={'hover:underline'}>
                 Login
               </Link>
             </span>
@@ -45,17 +57,17 @@ const Register = () => {
             <span className="w-full border-t"></span>
           </div>
         </div>
-        <div className={"flex w-full flex-col items-center justify-center gap-4 pt-4"}>
-          <Button variant={"outline"} className={"w-full border-2"}>
-            <img src={"images/google.svg"} width={"20"} height={"20"} alt={"google"} />
+        <div className={'flex w-full flex-col items-center justify-center gap-4 pt-4'}>
+          <Button variant={'outline'} className={'w-full border-2'}>
+            <img src={'images/google.svg'} width={'20'} height={'20'} alt={'google'} />
             Continue with Google
           </Button>
-          <Button variant={"outline"} className={"w-full border-2 [&_svg]:size-5"}>
+          <Button variant={'outline'} className={'w-full border-2 [&_svg]:size-5'}>
             <Github />
             Continue with GitHub
           </Button>
 
-          <Button variant={"outline"} className={"w-full border-2 [&_svg]:size-5"}>
+          <Button variant={'outline'} className={'w-full border-2 [&_svg]:size-5'}>
             <Fingerprint />
             Continue with Passkey
           </Button>

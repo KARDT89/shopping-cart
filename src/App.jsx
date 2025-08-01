@@ -49,12 +49,12 @@ function App() {
             </GradientText>
           </p>
           <div>
-
-          <p className="text-base md:text-lg text-muted-foreground ">
-            A minimalist E-Commerce project built with React.
-          </p><p className="text-base md:text-lg text-muted-foreground ">
-            Inspired by The Odin Project "ShoppingCart" Project.
-          </p>
+            <p className="text-base md:text-lg text-muted-foreground ">
+              A minimalist E-Commerce project built with React.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground ">
+              Inspired by The Odin Project "ShoppingCart" Project.
+            </p>
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
