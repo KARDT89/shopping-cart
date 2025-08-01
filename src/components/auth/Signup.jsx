@@ -6,18 +6,25 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Fingerprint, Github } from 'lucide-react';
 import { signUpNewUser } from '@/supabase/api';
-
+import { useNavigate } from 'react-router-dom';
 import { Loader } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Register = () => {
   const [isPending, setIsPending] = useState(false);
-
+ const navigate = useNavigate();
   async function handleSubmit(e) {
     e.preventDefault();
     const formdata = new FormData(e.target);
     const email = formdata.get('email');
     const password = formdata.get('password');
-    await signUpNewUser(email, password);
+    console.log(email, password);
+
+    const { data, error } = await signUpNewUser(email, password);
+    if(data){
+      toast("Successfully created new user")
+      navigate("/products")
+    }
   }
 
   return (

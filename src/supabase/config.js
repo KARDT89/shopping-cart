@@ -68,7 +68,7 @@ class Service {
       email: email,
       password: password,
       options: {
-        emailRedirectTo: 'https://example.com/welcome',
+        emailRedirectTo: 'http://localhost:5173/products',
       },
     });
     return { data, error };

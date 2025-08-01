@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Fingerprint, Github, Loader } from 'lucide-react';
 import { toast } from 'sonner';
-import { GithubLogin } from '@/supabase/api';
+import { GithubLogin, signInWithEmail } from '@/supabase/api';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [success, setIsSuccess] = useState(false);
@@ -14,6 +15,21 @@ const Login = () => {
   async function githubLogin() {
     await GithubLogin();
     setIsSuccess(true);
+  }
+  const navigate = useNavigate();
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const formdata = new FormData(e.target);
+    const email = formdata.get('email');
+    const password = formdata.get('password');
+    console.log(email, password);
+
+    const { data, error } = await signInWithEmail(email, password);
+    if(data){
+      console.log(data);
+      toast("Successfully logged in")
+      navigate("/products")
+    }
   }
 
   //   useEffect(() => {
@@ -26,7 +42,7 @@ const Login = () => {
     <div className={'flex pt-20 w-full items-center justify-center'}>
       <div className={'w-full max-w-sm rounded-lg border-4 p-8'}>
         <h2 className="mb-6 text-center font-sans text-3xl font-bold">Login</h2>
-        <form className={'space-x-4'}>
+        <form className={'space-x-4'} onSubmit={handleSubmit}>
           <span className={'flex flex-col items-center justify-center gap-4'}>
             <Input type="email" placeholder="Email" name={'email'} />
             <Input type="password" placeholder="Password" name={'password'} />
